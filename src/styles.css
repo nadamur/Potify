@@ -1,0 +1,93 @@
+/* css/styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+
+header {
+    background-color: red;
+    padding: 5px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px; 
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+display: flex;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+main {
+    padding: 15px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #3498db;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.user-info {
+text-align:right
+}
+
+.user-info img {
+width:25px;
+height:25px;    
+border-radius: 50%; /* Make the profile picture round */
+margin-right: 8px; /* Add some spacing between the picture and username */
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 99%
+}
+
+/* Add some top padding to the page content to prevent sudden quick movement (as the header gets a new position at the top of the page (position:fixed and top:0) */
+.sticky + .content {
+  padding-top: 100px;
+}
+
+footer {
+    background-color: black;
+    padding: 1px;
+    color: white;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px; 
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.user-profile {
+    /*display: flex;
+    align-items: right; Center items vertically */
+}
+
+.username {
+    font-weight: bold;
+    font-size: 16px;
+}
