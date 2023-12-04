@@ -3,8 +3,8 @@ const { createConnection } = require('mysql');
 const connection = createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'password',
-    database: 'potify',
+    password: '123!@#QWEasdzxc',
+    database: 'Potify',
     port: 3306,
 });
 
