@@ -14,8 +14,8 @@
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="search.html">Search</a></li>
-                <li><a href="recs.html">Recommendations</a></li>
-                <li><a href="topListener.html">Top Listener</a></li>
+                <li><a href="mostPopGenre.html">Most Popular Genres</a></li>
+                <li><a href="topArtists.html">Top Artists</a></li>
             </ul>
         </nav>
     <div class="user-info">
@@ -27,26 +27,13 @@
     <main>
         <h1>Search</h1>
         <!-- Your main content goes here -->
-        <!-- Search for an artist (display their stats) -->
-        <h3>Artist search:</h3>
+        <!-- Search for a date (display their stats) -->
+        <h3>Date search:</h3>
             <form action="query.php" method="post">
-                <label for="artist">Artist Name:</label>
-                <input type="text" name="artist" id="artist" required>
+                <label for="date">Date:</label>
+                <input type="text" name="date" id="date" required>
                 <button type="submit">Submit Query</button>
             </form>
-
-        <!-- Search for a song (display its stats) -->
-        <h3>Song search:</h3>
-            <form action="query.php" method="post">
-                <label for="song">Song Name:</label>
-                <input type="text" name="song" id="song" required>
-                <button type="submit">Submit Query</button>
-            </form>
-
-        <div class="search-bar">
-            <input type="text" placeholder="Search">
-            <button>Go</button>
-        </div>
     </main>
     
     <footer>

@@ -5,39 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="styles/styles.css">
     <script defer src="scripts\script.js"></script>
-    <title>Potify Top</title>
+    <title>Potify Recs</title>
 </head>
-
 <body>
     <header id="myHeader">
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="search.html">Search</a></li>
-                <li><a href="recs.html">Recommendations</a></li>
-                <li><a href="topListener.html">Top Listener</a></li>
+                <li><a href="mostPopGenre.html">Recommendations</a></li>
+                <li><a href="topArtists.html">Top Listener</a></li>
             </ul>
         </nav>
-        <div class="user-info">
-            <img src="images/croc.png" alt="profile picture">
+    <div class="user-info">
+        <img src="images/croc.png" alt="profile picture">
             <span>Username</span>
         </div>
     </header>
-
+    
     <main>
-        <h1>Top Listener</h1>
-        <button onclick="toggleText()">Top Listener</button>
-        <!-- performs the query to show the top user -->
+        <h1>Album Recommendations</h1>
+            <button onclick="toggleText()">Album Recommendation</button>
+            <!-- performs the query to match user with an album -->
+
         <div id="textSH" hidden>
             possimus!
         </div>
     </main>
 
     <footer>
-        <p style="text-align:left; padding-left:5px">
-             Potify Inc
-        <span style="float:right; padding-right:5px">
-             web design lkalab 
+        <!-- Your footer content goes here -->
+    <p style="text-align:left; padding-left:5px">
+         Potify Inc
+    <span style="float:right; padding-right:5px">
+                web design lkalab 
         </span></p>    
     </footer>
 </body>
