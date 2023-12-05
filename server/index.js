@@ -1,4 +1,8 @@
+const express = require('express');
 const { createConnection } = require('mysql');
+
+const app = express();
+const port = 3000;
 
 // FIRST cd to the DUMP folder
 // THEN TO RUN THE SCRIPT RUN: 'node db.js'
@@ -119,28 +123,19 @@ const query4_1 = `SELECT * FROM Song
                     FROM ListenTime
                     WHERE Song.songID = ListenTime.songID && ListenTime.listenDate = '1975-10-28')`; // THIS DATE WILL BE TAKEN FROM DATE INPUT
 
-connection.query(query4_1, (err, rows) => {
-    if (err) throw err;
-
-    console.log('\n*************** Data for QUERY 4_1 ****************:\n');
-    console.log(rows);
-
-    const query4_2 = `SELECT username, SUM(secondsListened) AS totalListenTime 
-                    FROM ListenTime 
-                    GROUP BY username
-                    ORDER BY totalListenTime DESC
-                    LIMIT 1`;
-
-    connection.query(query4_2, (err, rows) => {
-        if (err) throw err;
-
-        console.log('\n*************** Data for QUERY 4_2 ****************:\n');
-        console.log(rows);
-
-        // Close the connection after both queries are executed
-        connection.end();
-    });
+app.get('/api/data', (req,res) =>{
+    connection.query('SELECT * FROM Song', (error, results) => {
+        if (error) {
+          res.status(500).send(error.message);
+        } else {
+          res.json(results);
+        }
+      });
 });
+
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+  });
 
 
 // USE FOR OPTION #5 (USER LOGIN)
