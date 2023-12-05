@@ -29,3 +29,41 @@ const changeCarousel = () => {
 setInterval(() => {
   changeCarousel();
 }, 3000);
+
+//display the users playlists
+function createNewPlaylist(){
+  return;
+}
+
+//function to get the users playlists
+async function getUserPlaylist(){
+  try {
+    const response = await fetch(`/login`);
+    if (!response.ok) {
+      //if no heroes found, displays message
+      console.log("Error fetching log in status");
+    }else{
+      const data = await response.json();
+      console.log(data);
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
+//function to display most listened to artists
+async function mostListenedToArtists(){
+  try {
+    const response = await fetch(`/totalSongListenTime`);
+    if (!response.ok) {
+      console.log("Error fetching log in status");
+    }else{
+      const data = await response.json();
+      console.log(data);
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
+//function to recommend artist album to user
