@@ -123,7 +123,7 @@ const query4_1 = `SELECT * FROM Song
                     FROM ListenTime
                     WHERE Song.songID = ListenTime.songID && ListenTime.listenDate = '1975-10-28')`; // THIS DATE WILL BE TAKEN FROM DATE INPUT
 
- // 1) This will match each listener with an album depending on their initial preferred genre
+// 1) This will match each listener with an album depending on their initial preferred genre
 app.get('/api/listenersPreferredGenre', (req,res) =>{
   connection.query(`WITH PlaylistGenres AS (
       SELECT
