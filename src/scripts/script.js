@@ -8,7 +8,7 @@ function toggleText() {
 }
 
 // When the user scrolls the page, execute myFunction
-window.onscroll = function() {myFunction()};
+window.onscroll = function () { myFunction() };
 
 // Get the header
 var header = document.getElementById("myHeader");
@@ -24,3 +24,23 @@ function myFunction() {
     header.classList.remove("sticky");
   }
 }
+
+const carousel = [...document.querySelectorAll('.carousel img')];
+
+let carouselImageIndex = 0;
+
+const changeCarousel = () => {
+  carousel[carouselImageIndex].classList.toggle('active');
+
+  if (carouselImageIndex >= carousel.length - 1) {
+    carouselImageIndex = 0;
+  } else {
+    carouselImageIndex++;
+  }
+
+  carousel[carouselImageIndex].classList.toggle('active');
+}
+
+setInterval(() => {
+  changeCarousel();
+}, 3000);
