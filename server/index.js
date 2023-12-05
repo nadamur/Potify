@@ -122,9 +122,37 @@ const query4_1 = `SELECT * FROM Song
                     SELECT 1
                     FROM ListenTime
                     WHERE Song.songID = ListenTime.songID && ListenTime.listenDate = '1975-10-28')`; // THIS DATE WILL BE TAKEN FROM DATE INPUT
-
-app.get('/api/data', (req,res) =>{
-    connection.query('SELECT * FROM Song', (error, results) => {
+//  This will match each listener with an album depending on their initial preferred genre
+app.get('/api/listenersPreferredGenre', (req,res) =>{
+    connection.query(`WITH PlaylistGenres AS (
+        SELECT
+            ps.playlistID,
+            s.genre AS playlistMostCommonGenre,
+            RANK() OVER (PARTITION BY ps.playlistID, s.genre ORDER BY COUNT(*) DESC) AS genreRank
+        FROM
+            PlaylistSongs ps
+        JOIN ArtistAlbum aa ON ps.playlistID = aa.playlistID
+        JOIN Song s ON aa.artistID = s.artistID
+        GROUP BY ps.playlistID, s.genre
+    ),
+    UserGenreMatch AS (
+        SELECT
+            u.username,
+            u.userType,
+            pg.playlistMostCommonGenre
+        FROM
+            User u
+        JOIN PlaylistGenres pg ON u.genrePref = pg.playlistMostCommonGenre
+        WHERE u.userType = 'l'
+    )
+    SELECT
+        playlistMostCommonGenre,
+        COUNT(username) AS numberOfUsers
+    FROM UserGenreMatch
+    GROUP BY playlistMostCommonGenre
+    ORDER BY numberOfUsers DESC;
+    
+    `, (error, results) => {
         if (error) {
           res.status(500).send(error.message);
         } else {
