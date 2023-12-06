@@ -79,14 +79,49 @@ function hideSearchResults() {
   searchResultsDiv.style.display = "none";
 }
 
-function togglePlaylistResult() {
+async function togglePlaylistResult(playlistName) {
+  const songsDIV = document.getElementById('playlist-songs');
   var playlistResult = document.getElementById('playlistResult');
   var userPlaylist = document.getElementById('userPlaylist');
+  try {
+    const response = await fetch(`http://localhost:3000/api/playlistSongs/${playlistName}`);
+    if (!response.ok) {
+      console.log("Error fetching log in status");
+    } else {
+      const data = await response.json();
+      let n = 1;
+      for (song of data) {
+        const songDIV = document.createElement('div');
+        songDIV.classList.add('queue');
+        const songIMGDIV = document.createElement('div');
+        songIMGDIV.classList.add('queue-cover');
+        const songIMG = document.createElement('img');
+        songIMG.src = `images/plCard${n}.png`;
+        songIMGDIV.appendChild(songIMG);
+        console.log('image');
+        songName = document.createElement('p');
+        songName.classList.add('name');
+        songName.textContent = song.songName;
+        songDIV.appendChild(songIMGDIV);
+        console.log('songDIV');
+        songDIV.appendChild(songName);
+        console.log('song name');
+        songsDIV.appendChild(songDIV);
+        console.log('song DIV');
+        n = n + 1;
+      }
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
 
   // Toggle the visibility of the collabResult div
   if (playlistResult.style.display === 'none') {
     playlistResult.style.display = 'block';
   } else {
+    while(songsDIV.firstChild){
+      songsDIV.removeChild(songsDIV.firstChild);
+    }
     playlistResult.style.display = 'none';
   }
 }
@@ -161,9 +196,11 @@ async function diplayUserPlaylists() {
         playlistIMG.src = `images/plCard${n}.png`;
         playlistButton.classList.add('playlist-user-button');
         playlistButton.appendChild(playlistIMG);
-        playlistDIV.onclick = function(){
-          togglePlaylistResult();
-        };
+        (function(playlistName) {
+          playlistButton.onclick = function() {
+            togglePlaylistResult(playlistName);
+          };
+        })(playlist.playlistName);
         playlistName = document.createElement('p');
         playlistName.classList.add('playlist-card-name');
         playlistName.textContent = playlist.playlistName;
