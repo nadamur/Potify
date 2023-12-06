@@ -487,3 +487,48 @@ body {
     color: white;
     margin-top: 30px;
 }
+
+.personal-playlists-group {
+    position: relative;
+    width: 75vw;
+    min-height: 200px;
+    height: auto;
+    display: flex;
+    /* nowrap for swipping*/
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    border: 1px solid #000;
+    box-shadow: 3px 3px 15px darkcyan;
+    justify-content: center;
+    margin: auto;
+    padding: 30px 10px;
+}
+
+.personal-playlist-card {
+    flex: 0 0 auto;
+    /* max-width: 150px; */
+    height: 100%;
+    max-width: 17vw;
+    margin: auto;
+}
+
+.personal-user-button {
+    padding: 3px 3px;
+    font-size: 16px;
+    background-color: lightgray;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-bottom: 10px;
+}
+
+.personal-card-name {
+    width: 100%;
+    font-size: 20px;
+    text-transform: capitalize;
+    padding: 5px;
+    text-align: center;
+    color: white;
+}
