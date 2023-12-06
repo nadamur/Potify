@@ -238,6 +238,11 @@ async function diplayUserPlaylists() {
         playlistIMG.src = `images/plCard${n}.png`;
         playlistButton.classList.add('playlist-user-button');
         playlistButton.appendChild(playlistIMG);
+        (function (playlistName) {
+          playlistButton.onclick = function () {
+            togglePlaylistResult(playlistName);
+          };
+        })(playlist.playlistName);
         playlistDIV.onclick = function () {
           togglePlaylistResult();
         };
