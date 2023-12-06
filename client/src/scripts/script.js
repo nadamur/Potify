@@ -129,7 +129,7 @@ async function diplayMostListenedToArtists() {
   }
 }
 
-//function to display mtop listener
+//function to display top listener
 async function displayTopListener() {
   try {
     const response = await fetch(`http://localhost:3000/api/topUser`);
@@ -144,7 +144,7 @@ async function displayTopListener() {
         userDIV.classList.add('playlist-card');
         const userIMG = document.createElement('img');
         userIMG.classList.add('playlist-card-img');
-        userIMG.src = `images/image6.png`;
+        userIMG.src = `images/user4.png`;
         userName = document.createElement('p');
         userName.classList.add('playlist-card-name');
         userName.textContent = user.username;
@@ -199,13 +199,13 @@ async function usersWithSameTopGenre() {
     } else {
       const data = await response.json();
       const DIV = document.getElementById('users-with-same-top-genre');
-      let n = 2;
+      let n = 1;
       for (user of data) {
         const userDIV = document.createElement('div');
         userDIV.classList.add('playlist-card');
         const userIMG = document.createElement('img');
         userIMG.classList.add('playlist-card-img');
-        userIMG.src = `images/image${n}.png`;
+        userIMG.src = `images/user${n}.png`;
         userName = document.createElement('p');
         userName.classList.add('playlist-card-name');
         userName.textContent = user.username;
