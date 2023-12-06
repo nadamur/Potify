@@ -119,7 +119,7 @@ async function togglePlaylistResult(playlistName) {
   if (playlistResult.style.display === 'none') {
     playlistResult.style.display = 'block';
   } else {
-    while(songsDIV.firstChild){
+    while (songsDIV.firstChild) {
       songsDIV.removeChild(songsDIV.firstChild);
     }
     playlistResult.style.display = 'none';
@@ -161,18 +161,18 @@ async function createNewPlaylist() {
 
     // Update the front end to append a new div with the playlist information
     // for (playlist of data){
-      const playlistDiv = document.createElement('div');
-      playlistDiv.classList.add('personal-playlist-card');
-      const playlistImg = document.createElement('img');
-      playlistImg.classList.add('personal-playlist-card-img');
-      playlistImg.src = `images/artist${1}.png`;
-      const playlistName = document.createElement('p');
-      playlistName.classList.add('personal-playlist-card-name');
-      playlistName.textContent = playlist.playlistName;
-      playlistDiv.appendChild(playlistImg);
-      playlistDiv.appendChild(playlistName);
-      playlistDiv.appendChild(playlistDiv);
-      // playlistNum = playlistNum + 1;
+    const playlistDiv = document.createElement('div');
+    playlistDiv.classList.add('personal-playlist-card');
+    const playlistImg = document.createElement('img');
+    playlistImg.classList.add('personal-playlist-card-img');
+    playlistImg.src = `images/artist${1}.png`;
+    const playlistName = document.createElement('p');
+    playlistName.classList.add('personal-playlist-card-name');
+    playlistName.textContent = playlist.playlistName;
+    playlistDiv.appendChild(playlistImg);
+    playlistDiv.appendChild(playlistName);
+    playlistDiv.appendChild(playlistDiv);
+    // playlistNum = playlistNum + 1;
     // }
 
     // Old
@@ -238,17 +238,9 @@ async function diplayUserPlaylists() {
         playlistIMG.src = `images/plCard${n}.png`;
         playlistButton.classList.add('playlist-user-button');
         playlistButton.appendChild(playlistIMG);
-<<<<<<< HEAD
-        (function(playlistName) {
-          playlistButton.onclick = function() {
-            togglePlaylistResult(playlistName);
-          };
-        })(playlist.playlistName);
-=======
         playlistDIV.onclick = function () {
           togglePlaylistResult();
         };
->>>>>>> b6eb9cdadf11f2dcc2bf85855a67eec8e1621830
         playlistName = document.createElement('p');
         playlistName.classList.add('playlist-card-name');
         playlistName.textContent = playlist.playlistName;
