@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   displayTopListener();
   listenedToToday();
   usersWithSameTopGenre();
+  recommendedAlbum();
 })
 
 function toggleText() {
@@ -133,13 +134,13 @@ async function diplayMostListenedToArtists() {
     } else {
       const data = await response.json();
       const artistsDIV = document.getElementById('top-artists')
-      let n = 3;
+      let n = 1;
       for (song of data) {
         const artistDIV = document.createElement('div');
         artistDIV.classList.add('playlist-card');
         const artistIMG = document.createElement('img');
         artistIMG.classList.add('playlist-card-img');
-        artistIMG.src = `images/image${n}.png`;
+        artistIMG.src = `images/artist${n}.png`;
         artistName = document.createElement('p');
         artistName.classList.add('playlist-card-name');
         artistName.textContent = song.artistName;
@@ -184,35 +185,6 @@ async function displayTopListener() {
   }
 }
 
-//function to display Recommended Albums section
-async function displayRecommendedAlbums() {
-  // try {
-  //   const response = await fetch(`http://localhost:3000/api/artistsTopGenre`);
-  //   if (!response.ok) {
-  //     console.log("Error fetching log in status");
-  //   }else{
-  //     const data = await response.json();
-  //     const DIV = document.getElementById('recommended-albums');
-  //     console.log
-  //     for (user of data){
-  //       const userDIV = document.createElement('div');
-  //       userDIV.classList.add('playlist-card');
-  //       const userIMG = document.createElement('img');
-  //       userIMG.classList.add('playlist-card-img');
-  //       userIMG.src = `images/image6.png`;
-  //       userName = document.createElement('p');
-  //       userName.classList.add('playlist-card-name');
-  //       userName.textContent = user.username;
-  //       userDIV.appendChild(userIMG);
-  //       userDIV.appendChild(userName);
-  //       DIV.appendChild(userDIV);
-  //       n = n+1;
-  //     }
-  //   }
-  // } catch (error) {
-  //   console.error('Error:', error);
-  // }
-}
 
 //function to display what is being listened to today
 async function listenedToToday() {
@@ -229,7 +201,7 @@ async function listenedToToday() {
         songDIV.classList.add('playlist-card');
         const songIMG = document.createElement('img');
         songIMG.classList.add('playlist-card-img');
-        songIMG.src = `images/image${n}.png`;
+        songIMG.src = `images/album${n}.png`;
         songName = document.createElement('p');
         songName.classList.add('playlist-card-name');
         songName.textContent = song.songName;
@@ -266,6 +238,36 @@ async function usersWithSameTopGenre() {
         userDIV.appendChild(userIMG);
         userDIV.appendChild(userName);
         DIV.appendChild(userDIV);
+        n = n + 1;
+      }
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
+//function to recommend an album for a user
+async function recommendedAlbum() {
+  try {
+    const response = await fetch(`http://localhost:3000/api/recommendedAlbum`);
+    if (!response.ok) {
+      console.log("Error fetching log in status");
+    } else {
+      const data = await response.json();
+      const DIV = document.getElementById('recommended-albums');
+      let n = 1;
+      for (album of data) {
+        const albumDIV = document.createElement('div');
+        albumDIV.classList.add('playlist-card');
+        const albumIMG = document.createElement('img');
+        albumIMG.classList.add('playlist-card-img');
+        albumIMG.src = `images/album${n}.png`;
+        albumName = document.createElement('p');
+        albumName.classList.add('playlist-card-name');
+        albumName.textContent = album.playlistName;
+        albumDIV.appendChild(albumIMG);
+        albumDIV.appendChild(albumName);
+        DIV.appendChild(albumDIV);
         n = n + 1;
       }
     }
