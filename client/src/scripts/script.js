@@ -141,8 +141,33 @@ function toggleCollabResult() {
 }
 
 //display the users playlists
-function createNewPlaylist() {
-  return;
+async function createNewPlaylist() {
+  try {
+    const response = await fetch('http://localhost:3000/api/createPlaylist', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({}),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log(data);
+
+    // Update the front end to append a new div with the playlist information
+    const playlistDiv = document.getElementById('randomized-playlist');
+    const newPlaylistDiv = document.createElement('div');
+    console.log(data)
+    newPlaylistDiv.textContent = `New Playlist: ${data.playlistName}`; // Assuming the name is in the 'playlistName' property
+    playlistDiv.appendChild(newPlaylistDiv);
+  } catch (error) {
+    console.error('Error:', error);
+    // Handle errors as needed
+  }
 }
 
 
@@ -196,11 +221,17 @@ async function diplayUserPlaylists() {
         playlistIMG.src = `images/plCard${n}.png`;
         playlistButton.classList.add('playlist-user-button');
         playlistButton.appendChild(playlistIMG);
+<<<<<<< HEAD
         (function(playlistName) {
           playlistButton.onclick = function() {
             togglePlaylistResult(playlistName);
           };
         })(playlist.playlistName);
+=======
+        playlistDIV.onclick = function () {
+          togglePlaylistResult();
+        };
+>>>>>>> b6eb9cdadf11f2dcc2bf85855a67eec8e1621830
         playlistName = document.createElement('p');
         playlistName.classList.add('playlist-card-name');
         playlistName.textContent = playlist.playlistName;
