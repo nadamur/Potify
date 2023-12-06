@@ -16,7 +16,7 @@ const connection = createConnection({
   host: 'localhost',
   user: 'root',
   // CHANGE WITH YOUR MYSQL PASSWORD
-  password: '123!@#QWEasdzxc',
+  password: '!Spider99',
   database: 'Potify',
   port: 3306,
 });
