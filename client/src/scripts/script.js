@@ -155,23 +155,41 @@ async function createNewPlaylist() {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
+    function generateRandomNumber() {
+      // Generate a random decimal number between 0 (inclusive) and 1 (exclusive)
+      const randomNumber = Math.random();
+    
+      // Scale the random number to be between 1 and 3 (inclusive)
+      const scaledNumber = Math.floor(randomNumber * 5) + 1;
+    
+      return scaledNumber;
+    }
+
     const data = await response.json();
+    const randomNum = generateRandomNumber();
+    console.log("OUTPUT!!!");
     console.log(data);
+    console.log(randomNum);
+
+    const playlistDiv = document.getElementById("randomized-playlist");
     // let playlistNum = 1;
 
     // Update the front end to append a new div with the playlist information
     // for (playlist of data){
-      const playlistDiv = document.createElement('div');
-      playlistDiv.classList.add('personal-playlist-card');
+      const playlistCard = document.createElement('div');
+      playlistCard.classList.add('personal-playlist-card');
       const playlistImg = document.createElement('img');
-      playlistImg.classList.add('personal-playlist-card-img');
-      playlistImg.src = `images/artist${1}.png`;
-      const playlistName = document.createElement('p');
-      playlistName.classList.add('personal-playlist-card-name');
-      playlistName.textContent = playlist.playlistName;
-      playlistDiv.appendChild(playlistImg);
-      playlistDiv.appendChild(playlistName);
-      playlistDiv.appendChild(playlistDiv);
+      const playlistBtn = document.createElement('button');
+      playlistImg.classList.add('personal-playlist-image');
+      playlistImg.src = `images/album${randomNum}.png`;
+      playlistBtn.classList.add('playlist-user-button');
+      playlistBtn.appendChild(playlistImg);
+      const pName = document.createElement('p');
+      pName.classList.add('personal-playlist-name');
+      pName.textContent = data.playlistName;
+      playlistDiv.appendChild(playlistBtn);
+      playlistDiv.appendChild(pName);
+      playlistDiv.appendChild(playlistCard);
       // playlistNum = playlistNum + 1;
     // }
 
@@ -238,17 +256,9 @@ async function diplayUserPlaylists() {
         playlistIMG.src = `images/plCard${n}.png`;
         playlistButton.classList.add('playlist-user-button');
         playlistButton.appendChild(playlistIMG);
-<<<<<<< HEAD
-        (function(playlistName) {
-          playlistButton.onclick = function() {
-            togglePlaylistResult(playlistName);
-          };
-        })(playlist.playlistName);
-=======
         playlistDIV.onclick = function () {
           togglePlaylistResult();
         };
->>>>>>> b6eb9cdadf11f2dcc2bf85855a67eec8e1621830
         playlistName = document.createElement('p');
         playlistName.classList.add('playlist-card-name');
         playlistName.textContent = playlist.playlistName;

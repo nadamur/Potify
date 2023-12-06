@@ -490,12 +490,12 @@ body {
 
 .personal-playlists-group {
     position: relative;
-    width: 75vw;
+    width: 50vw;
     min-height: 200px;
     height: auto;
     display: flex;
     /* nowrap for swipping*/
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     overflow-x: auto;
     border: 1px solid #000;
     box-shadow: 3px 3px 15px darkcyan;
@@ -508,7 +508,21 @@ body {
     flex: 0 0 auto;
     /* max-width: 150px; */
     height: 100%;
-    max-width: 17vw;
+    margin-right: 20px;
+    max-width: 300px;
+    min-width: 300px;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+.personal-playlist-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 20px;
+    justify-content: center;
+    align-items: center;
     margin: auto;
 }
 
@@ -522,9 +536,12 @@ body {
     cursor: pointer;
     transition: background-color 0.3s;
     margin-bottom: 10px;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
 }
 
-.personal-card-name {
+.personal-playlist-name {
     width: 100%;
     font-size: 20px;
     text-transform: capitalize;

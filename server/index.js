@@ -326,13 +326,18 @@ WHERE pg.genreRank = 1 AND ugm.username = 'bob420';
   });
 });
 
-// returns all the playlists of a usert
+// returns all the playlists of a user
 app.get('/api/userPlaylists', (req, res) => {
-  connection.query(`SELECT * FROM Playlist WHERE creator = 'bob420';
-  `, (error, results) => {
+  const username = 'bob420';
+
+  connection.query('SELECT * FROM Playlist WHERE creator = ? LIMIT 4', [username], (error, results) => {
     if (error) {
+      console.error("SQL error:", error);
       res.status(500).send(error.message);
     } else {
+      console.log("Displaying results:");
+      console.log(results);
+      console.log("END displaying results:");
       res.json(results);
     }
   });
