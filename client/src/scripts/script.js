@@ -268,7 +268,7 @@ async function createNewPlaylist() {
   let counter = 0;
   for (child in div.children){
     counter = counter+1
-    if (counter ===3){
+    if (counter ===2){
       n = n + 1;
       counter = 0;
     }
@@ -286,21 +286,21 @@ async function createNewPlaylist() {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
-    function generateRandomNumber() {
-      // Generate a random decimal number between 0 (inclusive) and 1 (exclusive)
-      const randomNumber = Math.random();
+    // function generateRandomNumber() {
+    //   // Generate a random decimal number between 0 (inclusive) and 1 (exclusive)
+    //   const randomNumber = Math.random();
 
-      // Scale the random number to be between 1 and 3 (inclusive)
-      const scaledNumber = Math.floor(randomNumber * 5) + 1;
+    //   // Scale the random number to be between 1 and 3 (inclusive)
+    //   const scaledNumber = Math.floor(randomNumber * 5) + 1;
 
-      return scaledNumber;
-    }
+    //   return scaledNumber;
+    // }
 
     const data = await response.json();
-    const randomNum = generateRandomNumber();
+    // const randomNum = generateRandomNumber();
     console.log("OUTPUT!!!");
     console.log(data);
-    console.log(randomNum);
+    // console.log(randomNum);
 
     const playlistDiv = document.getElementById("randomized-playlist");
     // let playlistNum = 1;
@@ -312,13 +312,14 @@ async function createNewPlaylist() {
       const playlistImg = document.createElement('img');
       const playlistBtn = document.createElement('button');
       playlistImg.classList.add('personal-playlist-image');
-      playlistImg.src = `images/album${randomNum}.png`;
+      playlistImg.src = `images/album${n}.png`;
       playlistBtn.classList.add('playlist-user-button');
       playlistBtn.appendChild(playlistImg);
       const playName = document.createElement('p');
       playName.classList.add('personal-playlist-name');
       playName.textContent = data.playlistName;
-      playlistDiv.appendChild(playlistBtn);
+      playlistCard.appendChild(playlistBtn)
+      // playlistDiv.appendChild(playlistBtn);
       playlistDiv.appendChild(playName);
       playlistDiv.appendChild(playlistCard);
       console.log('playlist name: ' + data.playlistName);
