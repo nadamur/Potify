@@ -175,6 +175,7 @@ async function diplayUserPlaylists() {
         playlistIMG.classList.add('playlist-user-button');
         playlistIMG.src = `images/plCard${n}.png`;
         playlistButton.appendChild(playlistIMG);
+        playlistButton.onclick= togglePlaylistResult();
         playlistName = document.createElement('p');
         playlistName.classList.add('playlist-card-name');
         playlistName.textContent = playlist.playlistName;
