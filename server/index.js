@@ -369,14 +369,15 @@ WHERE
     }
   });
 });
-app.post('/api/createPlaylist', (req, res) => {
+app.post('/api/createPlaylist/:n', (req, res) => {
+  const n = req.params.n;
   connection.beginTransaction((err) => {
     if (err) {
       return res.status(500).send(err.message);
     }
 
     // Insert a playlist with the creator being bob420 into Playlist table
-    connection.query('INSERT INTO Playlist (creator, playlistName) VALUES (?, ?)', ['bob420', 'Random Playlist'], (error, playlistResult) => {
+    connection.query('INSERT INTO Playlist (creator, playlistName) VALUES (?, ?)', ['bob420', `Random Playlist ${n}`], (error, playlistResult) => {
       if (error) {
         return connection.rollback(() => {
           res.status(500).send(error.message);
@@ -411,7 +412,7 @@ app.post('/api/createPlaylist', (req, res) => {
             const playlistName = nameResult[0].playlistName;
 
             // Return the playlistName along with the songIDs
-            res.json({ playlistName, songIDs });
+            res.json({ playlistName, songIDs, playlistID });
           });
         });
       });

@@ -101,6 +101,7 @@
                     <input type="text" id="userInput" name="textInput" placeholder="Enter Username...">
                     <button class="collaborator-button" onclick="addCollaborator()">Add</button>
                     <p>Current Collaborators: </p>
+                    <div id="collaborators"></div>
                 </div>
             </div>
         </div>
@@ -111,6 +112,11 @@
         <!-- performs the modification to insert a new random playlist -->
         <button class="personal-playlist-button" onclick="createNewPlaylist()">Create New Playlist</button>
         <div class="personal-playlists-group" id="randomized-playlist"></div>
+
+        <div id="personal-result" style="display: none;">
+            <h1 class="heading" id="personalized-playlist-name"></h1>
+            <div class="user-playlists-group-1" id="personalized-playlist-songs"></div>
+        </div>
     </div>
 
     <h1 class="heading">What's Being Listened to Today...</h1>
