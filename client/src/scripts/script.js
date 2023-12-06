@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   listenedToToday();
   usersWithSameTopGenre();
   recommendedAlbum();
+  diplayUserPlaylists();
 })
 
 function toggleText() {
@@ -155,6 +156,39 @@ async function diplayMostListenedToArtists() {
   }
 }
 
+//function to display users playlists with ability to click on the playlist to display its songs
+async function diplayUserPlaylists() {
+  try {
+    const response = await fetch(`http://localhost:3000/api/userPlaylists`);
+    if (!response.ok) {
+      console.log("Error fetching log in status");
+    } else {
+      const data = await response.json();
+      const DIV = document.getElementById('user-playlists');
+      let n = 1;
+      for (playlist of data) {
+        console.log(playlist.playlistName);
+        const playlistDIV = document.createElement('div');
+        playlistDIV.classList.add('user-playlist-card');
+        const playlistIMG = document.createElement('img');
+        const playlistButton = document.createElement('button');
+        playlistIMG.classList.add('playlist-user-button');
+        playlistIMG.src = `images/plCard${n}.png`;
+        playlistButton.appendChild(playlistIMG);
+        playlistName = document.createElement('p');
+        playlistName.classList.add('playlist-card-name');
+        playlistName.textContent = playlist.playlistName;
+        playlistDIV.appendChild(playlistButton);
+        playlistDIV.appendChild(playlistName);
+        DIV.appendChild(playlistDIV);
+        n = n + 1;
+      }
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
 //function to display top listener
 async function displayTopListener() {
   try {
@@ -164,7 +198,6 @@ async function displayTopListener() {
     } else {
       const data = await response.json();
       const DIV = document.getElementById('top-listener');
-      console.log
       for (user of data) {
         const userDIV = document.createElement('div');
         userDIV.classList.add('playlist-card');
@@ -177,7 +210,6 @@ async function displayTopListener() {
         userDIV.appendChild(userIMG);
         userDIV.appendChild(userName);
         DIV.appendChild(userDIV);
-        n = n + 1;
       }
     }
   } catch (error) {

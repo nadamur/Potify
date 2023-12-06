@@ -48,9 +48,9 @@
     </div>    
 
     <div class="playlist-wrapper">
-        <h1 class="heading" id="Playlist">User Playlist</h1>
-        <div class="user-playlists-group">
-            <div id="userPlaylist" class="user-playlist-card" onclick="togglePlaylistResult()">
+        <h1 class="heading" id="Playlist">Your Playlists</h1>
+        <div class="user-playlists-group" id = "user-playlists">
+            <!-- <div id="userPlaylist" class="user-playlist-card" onclick="togglePlaylistResult()">
                 <button class="playlist-user-button"><img src="images/plCard1.png" class="playlist-card-img" alt=""></button>
                 <p class="playlist-card-name">User Playlist1</p>
             </div>
@@ -65,7 +65,7 @@
             <div id="userPlaylist" class="user-playlist-card"onclick="togglePlaylistResult()">
                 <button class="playlist-user-button"><img src="images/plCard4.png" class="playlist-card-img" alt=""></button>
                 <p class="playlist-card-name">User Playlist4</p>
-            </div>
+            </div> -->
         </div>
 
         <div id="playlistResult" style="display: none;">
@@ -106,7 +106,7 @@
     <h1 class="heading" id="PP">Personalized For You...</h1>
     <div class="playlist-display">
         <!-- performs the modification to insert a new random playlist -->
-        <button class="playlist-button" onclick="createNewPlaylist()">Create New Playlist</button>
+        <button class="playlist-button" onclick="createNewPlaylist()">Create New Randomized Playlist</button>
         <div class="playlists-group">
             <div id="textSH" hidden>
                 <p>Random playlist in genre possimus!</p>
