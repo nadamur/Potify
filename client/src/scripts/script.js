@@ -122,13 +122,30 @@ async function createNewPlaylist() {
 
     const data = await response.json();
     console.log(data);
+    // let playlistNum = 1;
 
     // Update the front end to append a new div with the playlist information
-    const playlistDiv = document.getElementById('randomized-playlist');
-    const newPlaylistDiv = document.createElement('div');
-    console.log(data)
-    newPlaylistDiv.textContent = `New Playlist: ${data.playlistName}`; // Assuming the name is in the 'playlistName' property
-    playlistDiv.appendChild(newPlaylistDiv);
+    // for (playlist of data){
+      const playlistDiv = document.createElement('div');
+      playlistDiv.classList.add('personal-playlist-card');
+      const playlistImg = document.createElement('img');
+      playlistImg.classList.add('personal-playlist-card-img');
+      playlistImg.src = `images/artist${1}.png`;
+      const playlistName = document.createElement('p');
+      playlistName.classList.add('personal-playlist-card-name');
+      playlistName.textContent = playlist.playlistName;
+      playlistDiv.appendChild(playlistImg);
+      playlistDiv.appendChild(playlistName);
+      playlistDiv.appendChild(playlistDiv);
+      // playlistNum = playlistNum + 1;
+    // }
+
+    // Old
+    // const playlistDiv = document.getElementById('randomized-playlist');
+    // const newPlaylistDiv = document.createElement('div');
+    // console.log(data)
+    // newPlaylistDiv.textContent = `New Playlist: ${data.playlistName}`; // Assuming the name is in the 'playlistName' property
+    // playlistDiv.appendChild(newPlaylistDiv);
   } catch (error) {
     console.error('Error:', error);
     // Handle errors as needed
