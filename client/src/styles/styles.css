@@ -123,7 +123,8 @@ body {
     /* border-radius: 20px; */
     box-shadow: var(--shadow);
     position: relative;
-    border: 1px solid darkcyan;
+    border: 1px solid #000;
+    box-shadow: 3px 3px 15px darkcyan;
     /* box-shadow: 3px 3px 15px lightcyan; */
     margin-top: 10px;
 }
@@ -164,7 +165,7 @@ body {
 
 .playlists-group {
     position: relative;
-    width: 65vw;
+    width: 50vw;
     min-height: 200px;
     height: auto;
     display: flex;
@@ -172,7 +173,7 @@ body {
     flex-wrap: wrap;
     overflow-x: auto;
     border: 1px solid #000;
-    box-shadow: 3px 3px 15px lightgray;
+    box-shadow: 3px 3px 15px darkcyan;
     justify-content: center;
     margin: auto;
     padding: 30px 10px;
@@ -183,7 +184,7 @@ body {
     /* max-width: 150px; */
     height: 100%;
     margin-right: 20px;
-    max-width: 400px;
+    max-width: 350px;
     min-width: 350px;
 }
 
@@ -211,7 +212,7 @@ body {
 }
 
 .playlist-button {
-    padding: 10px 20px;
+    padding: 10px 10px;
     font-size: 16px;
     background-color: darkcyan;
     color: white;
@@ -232,19 +233,19 @@ body {
     flex-wrap: nowrap;
     overflow-x: auto;
     border: 1px solid #000;
-    box-shadow: 3px 3px 15px lightgray;
+    box-shadow: 3px 3px 15px darkcyan;
     justify-content: center;
     margin: auto;
     padding: 30px 10px;
 }
 
 .playlist-user-button {
-    padding: 10px 20px;
+    padding: 3px 3px;
     font-size: 16px;
     background-color: lightgray;
     color: white;
     border: none;
-    border-radius: 10px;
+    border-radius: 20px;
     cursor: pointer;
     transition: background-color 0.3s;
     margin-bottom: 10px;
@@ -279,7 +280,7 @@ body {
     flex-wrap: wrap;
     overflow-x: auto;
     border: 1px solid #000;
-    box-shadow: 3px 3px 15px lightgray;
+    box-shadow: 3px 3px 15px darkcyan;
     justify-content: center;
     margin: auto;
     padding: 30px 10px;
@@ -388,10 +389,6 @@ body {
     display: none;
 }
 
-.queue.active i {
-    display: block;
-}
-
 .queue .name {
     font-size: 22px;
     text-transform: capitalize;
@@ -404,7 +401,7 @@ body {
     height: auto;
     overflow-x: auto;
     border: 1px solid #000;
-    box-shadow: 3px 3px 15px lightgray;
+    box-shadow: 3px 3px 15px darkcyan;
     justify-content: center;
     margin: auto;
     padding: 30px 10px;
@@ -422,7 +419,8 @@ body {
 .cool-footer {
     background-color: darkcyan;
     color: white;
-    padding: 30px 0px 0px;
+    padding: 15px 0px 0px;
+    margin-top: 80px;
 }
 
 .footer-content {
@@ -433,7 +431,7 @@ body {
 
 .footer-section i {
     margin-right: 8px;
-    font-size: 1.2em;
+    font-size: 0.9em;
 }
 
 .footer-section h2 {
@@ -459,7 +457,6 @@ body {
 .footer-section a {
     text-decoration: none;
     color: white;
-    font-weight: bold;
     transition: color 0.3s ease;
 }
 
