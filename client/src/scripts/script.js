@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   listenedToToday();
   usersWithSameTopGenre();
   recommendedAlbum();
+  diplayUserPlaylists();
 })
 
 function toggleText() {
@@ -134,21 +135,6 @@ async function createNewPlaylist() {
   }
 }
 
-//function to get the users playlists
-async function getUserPlaylist() {
-  try {
-    const response = await fetch(`/login`);
-    if (!response.ok) {
-      //if no heroes found, displays message
-      console.log("Error fetching log in status");
-    } else {
-      const data = await response.json();
-      console.log(data);
-    }
-  } catch (error) {
-    console.error('Error:', error);
-  }
-}
 
 //function to display most listened to artists
 async function diplayMostListenedToArtists() {
@@ -180,7 +166,44 @@ async function diplayMostListenedToArtists() {
   }
 }
 
-//function to display mtop listener
+//function to display users playlists with ability to click on the playlist to display its songs
+async function diplayUserPlaylists() {
+  try {
+    const response = await fetch(`http://localhost:3000/api/userPlaylists`);
+    if (!response.ok) {
+      console.log("Error fetching log in status");
+    } else {
+      const data = await response.json();
+      const DIV = document.getElementById('user-playlists');
+      let n = 1;
+      for (playlist of data) {
+        console.log(playlist.playlistName);
+        const playlistDIV = document.createElement('div');
+        playlistDIV.classList.add('user-playlist-card');
+        const playlistIMG = document.createElement('img');
+        const playlistButton = document.createElement('button');
+        playlistIMG.classList.add('playlist-card-img');
+        playlistIMG.src = `images/plCard${n}.png`;
+        playlistButton.classList.add('playlist-user-button');
+        playlistButton.appendChild(playlistIMG);
+        playlistDIV.onclick = function () {
+          togglePlaylistResult();
+        };
+        playlistName = document.createElement('p');
+        playlistName.classList.add('playlist-card-name');
+        playlistName.textContent = playlist.playlistName;
+        playlistDIV.appendChild(playlistButton);
+        playlistDIV.appendChild(playlistName);
+        DIV.appendChild(playlistDIV);
+        n = n + 1;
+      }
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
+//function to display top listener
 async function displayTopListener() {
   try {
     const response = await fetch(`http://localhost:3000/api/topUser`);
@@ -189,20 +212,18 @@ async function displayTopListener() {
     } else {
       const data = await response.json();
       const DIV = document.getElementById('top-listener');
-      console.log
       for (user of data) {
         const userDIV = document.createElement('div');
         userDIV.classList.add('playlist-card');
         const userIMG = document.createElement('img');
         userIMG.classList.add('playlist-card-img');
-        userIMG.src = `images/image6.png`;
+        userIMG.src = `images/user4.png`;
         userName = document.createElement('p');
         userName.classList.add('playlist-card-name');
         userName.textContent = user.username;
         userDIV.appendChild(userIMG);
         userDIV.appendChild(userName);
         DIV.appendChild(userDIV);
-        n = n + 1;
       }
     }
   } catch (error) {
@@ -250,13 +271,13 @@ async function usersWithSameTopGenre() {
     } else {
       const data = await response.json();
       const DIV = document.getElementById('users-with-same-top-genre');
-      let n = 2;
+      let n = 1;
       for (user of data) {
         const userDIV = document.createElement('div');
         userDIV.classList.add('playlist-card');
         const userIMG = document.createElement('img');
         userIMG.classList.add('playlist-card-img');
-        userIMG.src = `images/image${n}.png`;
+        userIMG.src = `images/user${n}.png`;
         userName = document.createElement('p');
         userName.classList.add('playlist-card-name');
         userName.textContent = user.username;
