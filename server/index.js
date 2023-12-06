@@ -162,6 +162,7 @@ app.get('/api/listenersPreferredGenre', (req, res) => {
   });
 });
 
+//make this return artist Name rather than artist ID
 // 2) This will tell us how long an artist’s songs have been listened to in total. ( top 5)
 app.get('/api/totalSongListenTime', (req, res) => {
   connection.query(`
@@ -173,7 +174,7 @@ app.get('/api/totalSongListenTime', (req, res) => {
       GROUP BY songID
     ) AS l ON s.songID = l.songID
     GROUP BY s.artistID
-    LIMIT 5;`
+    LIMIT 4;`
     , (error, results) => {
       if (error) {
         res.status(500).send(error.message);
@@ -211,7 +212,8 @@ app.get('/api/topListenedGenre', (req, res) => {
   )
   SELECT username, genre
   FROM RankedGenres
-  WHERE genreRank = 1 && genre = "possimus";`, (error, results) => {
+  WHERE genreRank = 1 && genre = "possimus"
+  LIMIT 4;`, (error, results) => {
     if (error) {
       res.status(500).send(error.message);
     } else {

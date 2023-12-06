@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
   diplayMostListenedToArtists();
   displayTopListener();
+  listenedToToday();
+  usersWithSameTopGenre();
 })
 
 function toggleText() {
@@ -34,6 +36,46 @@ const changeCarousel = () => {
 setInterval(() => {
   changeCarousel();
 }, 3000);
+
+function performSearch() {
+  // Get the search input value
+  var searchTerm = document.getElementById("searchInput").value.trim();
+
+  // Get the search results div
+  var searchResultsDiv = document.getElementById("searchResults");
+
+  // Check if the search term is not empty
+  if (searchTerm !== "") {
+      // Display the search term in the results div
+      displaySearchResults(searchTerm);
+      // Show the search results div
+      searchResultsDiv.style.display = "block";
+  } else {
+      // If the search term is empty, hide the results div
+      hideSearchResults();
+  }
+}
+
+function displaySearchResults(result) {
+  // Get the search results div
+  var searchResultsDiv = document.getElementById("searchResults");
+
+  // Display the result in a paragraph
+  var resultParagraph = document.createElement("p");
+  resultParagraph.textContent = "Search Result: " + result;
+
+  // Clear previous results
+  searchResultsDiv.innerHTML = "";
+
+  // Append the new result
+  searchResultsDiv.appendChild(resultParagraph);
+}
+
+function hideSearchResults() {
+  // Hide the search results div
+  var searchResultsDiv = document.getElementById("searchResults");
+  searchResultsDiv.style.display = "none";
+}
 
 //display the users playlists
 function createNewPlaylist() {
@@ -154,14 +196,44 @@ async function listenedToToday() {
       console.log("Error fetching log in status");
     } else {
       const data = await response.json();
-      const DIV = document.getElementById('recommended-albums');
-      console.log
+      const DIV = document.getElementById('listened-to-today');
+      let n = 2;
+      for (song of data) {
+        const songDIV = document.createElement('div');
+        songDIV.classList.add('playlist-card');
+        const songIMG = document.createElement('img');
+        songIMG.classList.add('playlist-card-img');
+        songIMG.src = `images/image${n}.png`;
+        songName = document.createElement('p');
+        songName.classList.add('playlist-card-name');
+        songName.textContent = song.songName;
+        songDIV.appendChild(songIMG);
+        songDIV.appendChild(songName);
+        DIV.appendChild(songDIV);
+        n = n + 1;
+      }
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
+//function to display users with the same top genre
+async function usersWithSameTopGenre() {
+  try {
+    const response = await fetch(`http://localhost:3000/api/topListenedGenre`);
+    if (!response.ok) {
+      console.log("Error fetching log in status");
+    } else {
+      const data = await response.json();
+      const DIV = document.getElementById('users-with-same-top-genre');
+      let n = 2;
       for (user of data) {
         const userDIV = document.createElement('div');
         userDIV.classList.add('playlist-card');
         const userIMG = document.createElement('img');
         userIMG.classList.add('playlist-card-img');
-        userIMG.src = `images/image6.png`;
+        userIMG.src = `images/image${n}.png`;
         userName = document.createElement('p');
         userName.classList.add('playlist-card-name');
         userName.textContent = user.username;

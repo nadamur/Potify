@@ -34,15 +34,11 @@
         </div>
     </div>
 
-<<<<<<< HEAD
     <div id="searchResults" class="search-results" style="display: none;">
-        <h1>Search Results:</h1>
+        <!-- Search results will be displayed here -->
     </div>
-    
-    <h1 class="heading" id="MPG">Most Popular Genres</h1>
-=======
+
     <h1 class="heading" id="recommended-albums">Recommended Albums Based on your Preferred Genre</h1>
->>>>>>> 73d32a3bc182820492059cf17deb689b047fe826
     <div class="playlists-group">
         <div class="playlist-card">
             <img src="images/image6.png" class="playlist-card-img" alt="">
@@ -73,22 +69,6 @@
 
     <h1 class="heading" id="TA">Top Artists</h1>
     <div class="playlists-group" id="top-artists">
-        <!-- <div class="playlist-card">
-            <img src="images/image10.png" onclick="{mostListenedToArtists()}" class="playlist-card-img" alt="">
-            <p class="playlist-card-name">top international</p>
-        </div>
-        <div class="playlist-card">
-            <img src="images/image11.png" class="playlist-card-img" alt="">
-            <p class="playlist-card-name">BTS collection</p>
-        </div>
-        <div class="playlist-card">
-            <img src="images/image12.png" class="playlist-card-img" alt="">
-            <p class="playlist-card-name">BTS collection</p>
-        </div>
-        <div class="playlist-card">
-            <img src="images/image13.png" class="playlist-card-img" alt="">
-            <p class="playlist-card-name">BTS collection</p>
-        </div> -->
     </div>
 
     <div class="playlist-display">
@@ -99,13 +79,6 @@
         </div>
     </div>
     
-    <h1 class="heading" id="TL">Special Thanks to Our Top Listener!</h1>
-    <div class="playlists-group" id="top-listener">
-        <!-- <div class="playlist-card">
-            <img src="images/image6.png" class="playlist-card-img" alt="">
-            <p class="playlist-card-name" id="top-listener"></p>
-        </div> -->
-    </div>
 
     <div class="playlist-display">
         <button class="playlist-button" onclick="toggleText()">Top Listener</button>
@@ -163,7 +136,8 @@
                 <p class="name">song 2</p>
             </div>
 
-            <button class="collaborator-button" onclick="">Show Collaborators</button>
+            <button class="collaborator-button" onclick="showCollab()">Show Collaborators</button>]
+                <div class="collaborator-result"></div>         
         </div>
     </div>
 
@@ -176,6 +150,26 @@
                 <p>Random playlist in genre possimus!</p>
             </div>
         </div>
+    </div>
+
+    <h1 class="heading">What's Being Listened to Today...</h1>
+    <div class="playlist-display" >
+        <div class="playlists-group" id="listened-to-today">
+        </div>
+    </div>
+
+    <h1 class="heading">Potify Users with your Music Taste!</h1>
+    <div class="playlist-display" >
+        <div class="playlists-group" id="users-with-same-top-genre">
+        </div>
+    </div>
+
+    <h1 class="heading" id="TL">Special Thanks to Our Top Listener!</h1>
+    <div class="playlists-group" id="top-listener">
+        <!-- <div class="playlist-card">
+            <img src="images/image6.png" class="playlist-card-img" alt="">
+            <p class="playlist-card-name" id="top-listener"></p>
+        </div> -->
     </div>
 
     <a href="#top" class="up">&#8593;</a>
