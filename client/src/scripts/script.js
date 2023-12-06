@@ -79,7 +79,11 @@ function hideSearchResults() {
   searchResultsDiv.style.display = "none";
 }
 
-async function togglePlaylistResult(playlistName) {
+//toggles playlist display (songs)
+async function togglePlaylistResult(playlistName, playlistID) {
+  const pName = document.getElementById('Playlist-name');
+  pName.dataset.id = playlistID;
+  pName.textContent = playlistName;
   const songsDIV = document.getElementById('playlist-songs');
   var playlistResult = document.getElementById('playlistResult');
   var userPlaylist = document.getElementById('userPlaylist');
@@ -97,17 +101,13 @@ async function togglePlaylistResult(playlistName) {
         songIMGDIV.classList.add('queue-cover');
         const songIMG = document.createElement('img');
         songIMG.src = `images/plCard${n}.png`;
-        songIMGDIV.appendChild(songIMG);
-        console.log('image');
+        songIMGDIV.appendChild(songIMG);;
         songName = document.createElement('p');
         songName.classList.add('name');
         songName.textContent = song.songName;
         songDIV.appendChild(songIMGDIV);
-        console.log('songDIV');
         songDIV.appendChild(songName);
-        console.log('song name');
         songsDIV.appendChild(songDIV);
-        console.log('song DIV');
         n = n + 1;
       }
     }
@@ -126,10 +126,33 @@ async function togglePlaylistResult(playlistName) {
   }
 }
 
-function toggleCollabResult() {
+//function to display collaborator names
+async function getCollaborators(){
   var collabResultDiv = document.getElementById('collabResult');
   var collabSearchButton = document.getElementById('collabSearch');
+  const playlistName = document.getElementById('Playlist-name').textContent;
+  try {
+    const response = await fetch(`http://localhost:3000/api/collaborators/${playlistName}`);
+    if (!response.ok) {
+      console.log("Error fetching log in status");
+    } else {
+      const data = await response.json();
+      for (const collaborator of data) {
+        username = document.createElement('p');
+        username.classList.add('name');
+        username.textContent = collaborator.collaborator;
+        collabResultDiv.appendChild(username);
+      }
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
 
+async function toggleCollabResult() {
+  var collabResultDiv = document.getElementById('collabResult');
+  var collabSearchButton = document.getElementById('collabSearch');
+  getCollaborators();
   // Toggle the visibility of the collabResult div
   if (collabResultDiv.style.display === 'none') {
     collabResultDiv.style.display = 'block';
@@ -156,12 +179,10 @@ async function createNewPlaylist() {
     }
 
     const data = await response.json();
-    console.log(data);
 
     // Update the front end to append a new div with the playlist information
     const playlistDiv = document.getElementById('randomized-playlist');
     const newPlaylistDiv = document.createElement('div');
-    console.log(data)
     newPlaylistDiv.textContent = `New Playlist: ${data.playlistName}`; // Assuming the name is in the 'playlistName' property
     playlistDiv.appendChild(newPlaylistDiv);
   } catch (error) {
@@ -210,9 +231,9 @@ async function diplayUserPlaylists() {
     } else {
       const data = await response.json();
       const DIV = document.getElementById('user-playlists');
+      var pName = document.getElementById('Playlist-name');
       let n = 1;
       for (playlist of data) {
-        console.log(playlist.playlistName);
         const playlistDIV = document.createElement('div');
         playlistDIV.classList.add('user-playlist-card');
         const playlistIMG = document.createElement('img');
@@ -221,17 +242,11 @@ async function diplayUserPlaylists() {
         playlistIMG.src = `images/plCard${n}.png`;
         playlistButton.classList.add('playlist-user-button');
         playlistButton.appendChild(playlistIMG);
-<<<<<<< HEAD
-        (function(playlistName) {
+        (function(playlistName, playlistID) {
           playlistButton.onclick = function() {
-            togglePlaylistResult(playlistName);
+            togglePlaylistResult(playlistName, playlistID);
           };
-        })(playlist.playlistName);
-=======
-        playlistDIV.onclick = function () {
-          togglePlaylistResult();
-        };
->>>>>>> b6eb9cdadf11f2dcc2bf85855a67eec8e1621830
+        })(playlist.playlistName, playlist.playlistID);
         playlistName = document.createElement('p');
         playlistName.classList.add('playlist-card-name');
         playlistName.textContent = playlist.playlistName;
@@ -359,6 +374,28 @@ async function recommendedAlbum() {
         DIV.appendChild(albumDIV);
         n = n + 1;
       }
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
+
+//function to add a collaborator
+async function addCollaborator() {
+  const username = document.getElementById('userInput').value;
+  const pName = document.getElementById('Playlist-name');
+  const playlistID = pName.dataset.id;
+  try{
+    const response = await fetch(`http://localhost:3000/api/addCollaborator/${username}?playlistID=${playlistID}`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'}
+    });
+    if (response.status === 200) {
+      console.log('Updated');
+      getCollaborators();
+    }else {
+      console.error('Error:', response.status);
     }
   } catch (error) {
     console.error('Error:', error);
