@@ -118,12 +118,13 @@ body {
 
 .carousel {
     width: 100%;
-    height: 200px;
+    height: 400px;
     overflow: hidden;
     /* border-radius: 20px; */
     box-shadow: var(--shadow);
     position: relative;
-    border: 1px solid darkcyan;
+    border: 1px solid #000;
+    box-shadow: 3px 3px 15px darkcyan;
     /* box-shadow: 3px 3px 15px lightcyan; */
     margin-top: 10px;
 }
@@ -164,7 +165,7 @@ body {
 
 .playlists-group {
     position: relative;
-    width: 75vw;
+    width: 50vw;
     min-height: 200px;
     height: auto;
     display: flex;
@@ -172,7 +173,7 @@ body {
     flex-wrap: wrap;
     overflow-x: auto;
     border: 1px solid #000;
-    box-shadow: 3px 3px 15px lightgray;
+    box-shadow: 3px 3px 15px darkcyan;
     justify-content: center;
     margin: auto;
     padding: 30px 10px;
@@ -183,7 +184,8 @@ body {
     /* max-width: 150px; */
     height: 100%;
     margin-right: 20px;
-    max-width: 400px;
+    max-width: 350px;
+    min-width: 350px;
 }
 
 .playlist-card-img {
@@ -210,7 +212,7 @@ body {
 }
 
 .playlist-button {
-    padding: 10px 20px;
+    padding: 10px 10px;
     font-size: 16px;
     background-color: darkcyan;
     color: white;
@@ -231,19 +233,19 @@ body {
     flex-wrap: nowrap;
     overflow-x: auto;
     border: 1px solid #000;
-    box-shadow: 3px 3px 15px lightgray;
+    box-shadow: 3px 3px 15px darkcyan;
     justify-content: center;
     margin: auto;
     padding: 30px 10px;
 }
 
 .playlist-user-button {
-    padding: 10px 20px;
+    padding: 3px 3px;
     font-size: 16px;
     background-color: lightgray;
     color: white;
     border: none;
-    border-radius: 10px;
+    border-radius: 20px;
     cursor: pointer;
     transition: background-color 0.3s;
     margin-bottom: 10px;
@@ -258,6 +260,9 @@ body {
 }
 
 .search {
+    position: relative;
+    top: 7px;
+    right: 10px;
     float: right;
 }
 
@@ -275,7 +280,7 @@ body {
     flex-wrap: wrap;
     overflow-x: auto;
     border: 1px solid #000;
-    box-shadow: 3px 3px 15px lightgray;
+    box-shadow: 3px 3px 15px darkcyan;
     justify-content: center;
     margin: auto;
     padding: 30px 10px;
@@ -288,9 +293,9 @@ body {
     margin-bottom: 15px;
 }
 
-#textSH {
-    position: relative;
-    color: white;
+#searchInput {
+    padding: 10px 10px;
+    border-radius: 5px;
 }
 
 .up {
@@ -384,10 +389,6 @@ body {
     display: none;
 }
 
-.queue.active i {
-    display: block;
-}
-
 .queue .name {
     font-size: 22px;
     text-transform: capitalize;
@@ -400,7 +401,7 @@ body {
     height: auto;
     overflow-x: auto;
     border: 1px solid #000;
-    box-shadow: 3px 3px 15px lightgray;
+    box-shadow: 3px 3px 15px darkcyan;
     justify-content: center;
     margin: auto;
     padding: 30px 10px;
@@ -413,4 +414,59 @@ body {
     margin: auto;
     justify-content: center;
     align-items: center;
+}
+
+.cool-footer {
+    background-color: darkcyan;
+    color: white;
+    padding: 15px 0px 0px;
+    margin-top: 80px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.footer-section i {
+    margin-right: 8px;
+    font-size: 0.9em;
+}
+
+.footer-section h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.footer-section p {
+    font-size: 0.9em;
+    line-height: 1.4;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 8px;
+}
+
+.footer-section a {
+    text-decoration: none;
+    color: white;
+    transition: color 0.3s ease;
+}
+
+.footer-section a:hover {
+    color: white;
+}
+
+.footer-bottom {
+    background-color: white;
+    color: darkcyan;
+    text-align: center;
+    padding: 10px 0;
 }
