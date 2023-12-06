@@ -116,7 +116,7 @@ async function diplayMostListenedToArtists() {
         artistIMG.src = `images/image${n}.png`;
         artistName = document.createElement('p');
         artistName.classList.add('playlist-card-name');
-        artistName.textContent = song.artistID;
+        artistName.textContent = song.artistName;
         artistDIV.appendChild(artistIMG);
         artistDIV.appendChild(artistName);
         artistsDIV.appendChild(artistDIV);

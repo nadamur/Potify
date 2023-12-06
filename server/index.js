@@ -166,15 +166,16 @@ app.get('/api/listenersPreferredGenre', (req, res) => {
 // 2) This will tell us how long an artist’s songs have been listened to in total. ( top 5)
 app.get('/api/totalSongListenTime', (req, res) => {
   connection.query(`
-    SELECT s.artistID, SUM(l.secondsSum) AS totalSecondsSum
-    FROM Song s
-    INNER JOIN (
+  SELECT u.artistName, SUM(l.secondsSum) AS totalSecondsSum
+  FROM Song s
+  INNER JOIN User u ON s.artistID = u.username
+  INNER JOIN (
       SELECT songID, SUM(secondsListened) AS secondsSum
       FROM ListenTime
       GROUP BY songID
-    ) AS l ON s.songID = l.songID
-    GROUP BY s.artistID
-    LIMIT 4;`
+  ) AS l ON s.songID = l.songID
+  GROUP BY u.artistName
+  LIMIT 5;`
     , (error, results) => {
       if (error) {
         res.status(500).send(error.message);
@@ -184,7 +185,9 @@ app.get('/api/totalSongListenTime', (req, res) => {
     });
 });
 
-// 3) It will group them by username and genre and add up the secondsListened for each song under that username, genre combo. This will tell us how long a user listened to a specific genre.
+// 3) It will group them by username and genre and add up the secondsListened for each song under that username, 
+// genre combo. This will tell us how long a user listened to a specific genre.
+//how long each user listened to each genre
 app.get('/api/listenTimeGenre', (req, res) => {
   connection.query(`SELECT  l.username, s.genre, SUM(l.secondsListened) AS totalTime
   FROM ListenTime l, Song s
@@ -198,7 +201,8 @@ app.get('/api/listenTimeGenre', (req, res) => {
   });
 });
 
-// 4) Finds the most listened-to genre for each user by calculating the total listening time for each genre, ranking the genres within each user's partition, and then selecting the users with the top genre ‘possimus’.
+// 4) Finds the most listened-to genre for each user by calculating the total listening time for each genre, 
+// ranking the genres within each user's partition, and then selecting the users with the top genre ‘possimus’.
 app.get('/api/topListenedGenre', (req, res) => {
   connection.query(`WITH RankedGenres AS (
       SELECT
@@ -212,7 +216,7 @@ app.get('/api/topListenedGenre', (req, res) => {
   )
   SELECT username, genre
   FROM RankedGenres
-  WHERE genreRank = 1 && genre = "possimus"
+  WHERE genreRank = 1 && genre = "hiphop"
   LIMIT 4;`, (error, results) => {
     if (error) {
       res.status(500).send(error.message);
@@ -266,7 +270,7 @@ app.get('/api/artistsTopGenre', (req, res) => {
   )
   SELECT artistName, mostFrequentGenre
   FROM RankedArtists
-  WHERE artistRank = 1 && mostFrequentGenre = 'possimus'
+  WHERE artistRank = 1 && mostFrequentGenre = 'hiphop'
   LIMIT 5;
   
   `, (error, results) => {
@@ -277,6 +281,50 @@ app.get('/api/artistsTopGenre', (req, res) => {
     }
   });
 });
+
+// 8)  Recommends album to user based on initial genre 
+app.get('/api/artistsTopGenre', (req, res) => {
+  connection.query(`WITH PlaylistGenres AS (
+    SELECT
+        ps.playlistID,
+        s.genre AS playlistMostCommonGenre,
+        RANK() OVER (PARTITION BY ps.playlistID, s.genre ORDER BY COUNT(*) DESC) AS genreRank
+    FROM
+        PlaylistSongs ps
+    JOIN ArtistAlbum aa ON ps.playlistID = aa.playlistID
+    JOIN Song s ON aa.artistID = s.artistID
+    GROUP BY ps.playlistID, s.genre
+),
+UserGenreMatch AS (
+    SELECT
+        u.username,
+        u.userType,
+        pg.playlistMostCommonGenre
+    FROM
+        User u
+    JOIN PlaylistGenres pg ON u.genrePref = pg.playlistMostCommonGenre
+    WHERE u.userType = 'l'
+)
+SELECT DISTINCT
+    ugm.username,
+    ugm.playlistMostCommonGenre,
+    pg.playlistID
+FROM
+    UserGenreMatch ugm
+JOIN PlaylistGenres pg ON ugm.playlistMostCommonGenre = pg.playlistMostCommonGenre
+WHERE pg.genreRank = 1 AND ugm.username = 'bob420'; 
+  
+  `, (error, results) => {
+    if (error) {
+      res.status(500).send(error.message);
+    } else {
+      res.json(results);
+    }
+  });
+});
+
+
+
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
