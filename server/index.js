@@ -1,8 +1,10 @@
 const express = require('express');
 const { createConnection } = require('mysql');
+const cors = require('cors');
 
 const app = express();
 const port = 3000;
+app.use(cors());
 
 // FIRST cd to the DUMP folder
 // THEN TO RUN THE SCRIPT RUN: 'node db.js'
@@ -11,12 +13,21 @@ const port = 3000;
 // do 'npm i mysql' to download dependencies
 // also do 'npm -y' to initialize package.json
 const connection = createConnection({
+<<<<<<< HEAD
   host: 'localhost',
   user: 'root',
   // CHANGE WITH YOUR MYSQL PASSWORD
   password: '123!@#QWEasdzxc',
   database: 'Potify',
   port: 3306,
+=======
+    host: 'localhost',
+    user: 'root',
+    // CHANGE WITH YOUR MYSQL PASSWORD
+    password: 'Wmlldn2003',
+    database: 'Potify',
+    port: 3306,
+>>>>>>> 73d32a3bc182820492059cf17deb689b047fe826
 });
 
 connection.connect();
@@ -160,17 +171,26 @@ app.get('/api/listenersPreferredGenre', (req, res) => {
   });
 });
 
+<<<<<<< HEAD
 // 2) This will tell us how long an artist’s songs have been listened to in total. (top 4)
 app.get('/api/totalSongListenTime', (req, res) => {
   connection.query(`
     SELECT a.artistName, SUM(l.secondsSum) AS totalSecondsSum
     FROM Artist a
     INNER JOIN Song s ON a.artistID = s.artistID
+=======
+// 2) This will tell us how long an artist’s songs have been listened to in total. ( top 5)
+app.get('/api/totalSongListenTime', (req,res) =>{
+    connection.query(`
+    SELECT s.artistID, SUM(l.secondsSum) AS totalSecondsSum
+    FROM Song s
+>>>>>>> 73d32a3bc182820492059cf17deb689b047fe826
     INNER JOIN (
       SELECT songID, SUM(secondsListened) AS secondsSum
       FROM ListenTime
       GROUP BY songID
     ) AS l ON s.songID = l.songID
+<<<<<<< HEAD
     GROUP BY a.artistID
     ORDER BY totalSecondsSum DESC
     LIMIT 4;
@@ -180,8 +200,18 @@ app.get('/api/totalSongListenTime', (req, res) => {
     } else {
       res.json(results);
     }
+=======
+    GROUP BY s.artistID
+    LIMIT 5;`
+  , (error, results) => {
+        if (error) {
+          res.status(500).send(error.message);
+        } else {
+          res.json(results);
+        }
+    });
+>>>>>>> 73d32a3bc182820492059cf17deb689b047fe826
   });
-});
 
 // 3) It will group them by username and genre and add up the secondsListened for each song under that username, genre combo. This will tell us how long a user listened to a specific genre.
 app.get('/api/listenTimeGenre', (req, res) => {
@@ -264,7 +294,8 @@ app.get('/api/artistsTopGenre', (req, res) => {
   )
   SELECT artistName, mostFrequentGenre
   FROM RankedArtists
-  WHERE artistRank = 1 && mostFrequentGenre = “possimus”;
+  WHERE artistRank = 1 && mostFrequentGenre = 'possimus'
+  LIMIT 5;
   
   `, (error, results) => {
     if (error) {
