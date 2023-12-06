@@ -282,7 +282,7 @@ app.get('/api/artistsTopGenre', (req, res) => {
   });
 });
 
-// 8)  Recommends album to user based on initial genre 
+// Recommends album to user based on initial genre 
 app.get('/api/recommendedAlbum', (req, res) => {
   connection.query(`WITH PlaylistGenres AS (
     SELECT
@@ -326,7 +326,7 @@ WHERE pg.genreRank = 1 AND ugm.username = 'bob420';
   });
 });
 
-// 9) returns all the playlists of a usert
+// returns all the playlists of a usert
 app.get('/api/userPlaylists', (req, res) => {
   connection.query(`SELECT * FROM Playlist WHERE creator = 'bob420';
   `, (error, results) => {
@@ -338,6 +338,33 @@ app.get('/api/userPlaylists', (req, res) => {
   });
 });
 
+// returns all songs in a playlist
+app.get('/api/playlistSongs/:playlistName', (req, res) => {
+  const playlistName = req.params.playlistName;
+  connection.query(`SELECT
+  s.songID,
+  s.artistID,
+  s.songName,
+  s.genre,
+  s.length,
+  s.songURL,
+  s.dateAdded
+FROM
+  Playlist AS p
+JOIN
+  PlaylistSongs AS ps ON p.playlistID = ps.playlistID
+JOIN
+  Song AS s ON ps.songID = s.songID
+WHERE
+  p.playlistName = '${playlistName}';
+  `, (error, results) => {
+    if (error) {
+      res.status(500).send(error.message);
+    } else {
+      res.json(results);
+    }
+  });
+});
 app.post('/api/createPlaylist', (req, res) => {
   connection.beginTransaction((err) => {
     if (err) {
