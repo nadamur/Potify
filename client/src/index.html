@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Page Title</title>
+    <title>Potify</title>
     <link rel="stylesheet" href="styles/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
@@ -69,7 +69,7 @@
         </div>
 
         <div id="playlistResult" style="display: none;">
-            <h1 class="heading" id="Playlist">Song Playlist</h1>
+            <h1 class="heading" id="Playlist-name"></h1>
             <div class="user-playlists-group-1" id="playlist-songs">
                 <!-- <div class="queue">
                     <div class="queue-cover">
@@ -97,7 +97,10 @@
             
                 <div id="collabResult" class="collab-result-wrapper" style="display: none;">
                     <!-- Search results will be displayed here -->
-                    <p>Search results will appear here.</p>
+                    <label for="userInput">Add Collaborator:</label>
+                    <input type="text" id="userInput" name="textInput" placeholder="Enter Username...">
+                    <button class="collaborator-button" onclick="addCollaborator()">Add</button>
+                    <p>Current Collaborators: </p>
                 </div>
             </div>
         </div>
