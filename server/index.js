@@ -16,7 +16,7 @@ const connection = createConnection({
   host: 'localhost',
   user: 'root',
   // CHANGE WITH YOUR MYSQL PASSWORD
-  password: '!Spider99',
+  password: 'Wmlldn2003',
   database: 'Potify',
   port: 3306,
 });
@@ -175,7 +175,7 @@ app.get('/api/totalSongListenTime', (req, res) => {
       GROUP BY songID
   ) AS l ON s.songID = l.songID
   GROUP BY u.artistName
-  LIMIT 5;`
+  LIMIT 4;`
     , (error, results) => {
       if (error) {
         res.status(500).send(error.message);
@@ -271,7 +271,7 @@ app.get('/api/artistsTopGenre', (req, res) => {
   SELECT artistName, mostFrequentGenre
   FROM RankedArtists
   WHERE artistRank = 1 && mostFrequentGenre = 'hiphop'
-  LIMIT 5;
+  LIMIT 4;
   
   `, (error, results) => {
     if (error) {
@@ -283,17 +283,19 @@ app.get('/api/artistsTopGenre', (req, res) => {
 });
 
 // 8)  Recommends album to user based on initial genre 
-app.get('/api/artistsTopGenre', (req, res) => {
+app.get('/api/recommendedAlbum', (req, res) => {
   connection.query(`WITH PlaylistGenres AS (
     SELECT
         ps.playlistID,
+        p.playlistName,
         s.genre AS playlistMostCommonGenre,
         RANK() OVER (PARTITION BY ps.playlistID, s.genre ORDER BY COUNT(*) DESC) AS genreRank
     FROM
         PlaylistSongs ps
     JOIN ArtistAlbum aa ON ps.playlistID = aa.playlistID
     JOIN Song s ON aa.artistID = s.artistID
-    GROUP BY ps.playlistID, s.genre
+    JOIN Playlist p ON ps.playlistID = p.playlistID
+    GROUP BY ps.playlistID, p.playlistName, s.genre
 ),
 UserGenreMatch AS (
     SELECT
@@ -307,13 +309,14 @@ UserGenreMatch AS (
 )
 SELECT DISTINCT
     ugm.username,
+    ugm.userType,
     ugm.playlistMostCommonGenre,
-    pg.playlistID
+    pg.playlistID,
+    pg.playlistName
 FROM
     UserGenreMatch ugm
 JOIN PlaylistGenres pg ON ugm.playlistMostCommonGenre = pg.playlistMostCommonGenre
 WHERE pg.genreRank = 1 AND ugm.username = 'bob420'; 
-  
   `, (error, results) => {
     if (error) {
       res.status(500).send(error.message);
@@ -323,7 +326,49 @@ WHERE pg.genreRank = 1 AND ugm.username = 'bob420';
   });
 });
 
-
+// 9) returns all the playlists of a usert
+app.get('/api/recommendedAlbum', (req, res) => {
+  connection.query(`WITH PlaylistGenres AS (
+    SELECT
+        ps.playlistID,
+        p.playlistName,
+        s.genre AS playlistMostCommonGenre,
+        RANK() OVER (PARTITION BY ps.playlistID, s.genre ORDER BY COUNT(*) DESC) AS genreRank
+    FROM
+        PlaylistSongs ps
+    JOIN ArtistAlbum aa ON ps.playlistID = aa.playlistID
+    JOIN Song s ON aa.artistID = s.artistID
+    JOIN Playlist p ON ps.playlistID = p.playlistID
+    GROUP BY ps.playlistID, p.playlistName, s.genre
+),
+UserGenreMatch AS (
+    SELECT
+        u.username,
+        u.userType,
+        pg.playlistMostCommonGenre
+    FROM
+        User u
+    JOIN PlaylistGenres pg ON u.genrePref = pg.playlistMostCommonGenre
+    WHERE u.userType = 'l'
+)
+SELECT DISTINCT
+    ugm.username,
+    ugm.userType,
+    ugm.playlistMostCommonGenre,
+    pg.playlistID,
+    pg.playlistName
+FROM
+    UserGenreMatch ugm
+JOIN PlaylistGenres pg ON ugm.playlistMostCommonGenre = pg.playlistMostCommonGenre
+WHERE pg.genreRank = 1 AND ugm.username = 'bob420'; 
+  `, (error, results) => {
+    if (error) {
+      res.status(500).send(error.message);
+    } else {
+      res.json(results);
+    }
+  });
+});
 
 
 app.listen(port, () => {
