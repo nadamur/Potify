@@ -110,21 +110,6 @@ function createNewPlaylist() {
   return;
 }
 
-//function to get the users playlists
-async function getUserPlaylist() {
-  try {
-    const response = await fetch(`/login`);
-    if (!response.ok) {
-      //if no heroes found, displays message
-      console.log("Error fetching log in status");
-    } else {
-      const data = await response.json();
-      console.log(data);
-    }
-  } catch (error) {
-    console.error('Error:', error);
-  }
-}
 
 //function to display most listened to artists
 async function diplayMostListenedToArtists() {
@@ -172,10 +157,13 @@ async function diplayUserPlaylists() {
         playlistDIV.classList.add('user-playlist-card');
         const playlistIMG = document.createElement('img');
         const playlistButton = document.createElement('button');
-        playlistIMG.classList.add('playlist-user-button');
+        playlistIMG.classList.add('playlist-card-img');
         playlistIMG.src = `images/plCard${n}.png`;
+        playlistButton.classList.add('playlist-user-button');
         playlistButton.appendChild(playlistIMG);
-        playlistButton.onclick = togglePlaylistResult();
+        playlistDIV.onclick = function () {
+          togglePlaylistResult();
+        };
         playlistName = document.createElement('p');
         playlistName.classList.add('playlist-card-name');
         playlistName.textContent = playlist.playlistName;
