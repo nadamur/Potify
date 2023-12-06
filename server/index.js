@@ -11,12 +11,12 @@ const port = 3000;
 // do 'npm i mysql' to download dependencies
 // also do 'npm -y' to initialize package.json
 const connection = createConnection({
-    host: 'localhost',
-    user: 'root',
-    // CHANGE WITH YOUR MYSQL PASSWORD
-    password: '123!@#QWEasdzxc',
-    database: 'Potify',
-    port: 3306,
+  host: 'localhost',
+  user: 'root',
+  // CHANGE WITH YOUR MYSQL PASSWORD
+  password: '123!@#QWEasdzxc',
+  database: 'Potify',
+  port: 3306,
 });
 
 connection.connect();
@@ -54,10 +54,10 @@ const query1 = `
                 `;
 
 connection.query(query1, (err, rows) => {
-    if (err) throw err;
+  if (err) throw err;
 
-    console.log('\n*************** Data for QUERY 1 ****************:\n');
-    console.log(rows);
+  console.log('\n*************** Data for QUERY 1 ****************:\n');
+  console.log(rows);
 });
 
 // // USE FOR OPTION #2 (Modification #2 aka Creating random playlist with one user's id)
@@ -109,10 +109,10 @@ const query3 = `SELECT s.artistID, SUM(l.secondsSum) AS totalSecondsSum
                 LIMIT 5;`
 
 connection.query(query3, (err, rows) => {
-    if (err) throw err;
+  if (err) throw err;
 
-    console.log('\n*************** Data for QUERY 3 ****************:\n');
-    console.log(rows);
+  console.log('\n*************** Data for QUERY 3 ****************:\n');
+  console.log(rows);
 });
 
 // USE FOR OPTION #4 (Songs listened to by one person on a specific day)
@@ -124,7 +124,7 @@ const query4_1 = `SELECT * FROM Song
                     WHERE Song.songID = ListenTime.songID && ListenTime.listenDate = '1975-10-28')`; // THIS DATE WILL BE TAKEN FROM DATE INPUT
 
 // 1) This will match each listener with an album depending on their initial preferred genre
-app.get('/api/listenersPreferredGenre', (req,res) =>{
+app.get('/api/listenersPreferredGenre', (req, res) => {
   connection.query(`WITH PlaylistGenres AS (
       SELECT
           ps.playlistID,
@@ -152,49 +152,53 @@ app.get('/api/listenersPreferredGenre', (req,res) =>{
   FROM UserGenreMatch
   GROUP BY playlistMostCommonGenre
   ORDER BY numberOfUsers DESC;`, (error, results) => {
-      if (error) {
-        res.status(500).send(error.message);
-      } else {
-        res.json(results);
-      }
+    if (error) {
+      res.status(500).send(error.message);
+    } else {
+      res.json(results);
+    }
   });
 });
 
-// 2) This will tell us how long an artist’s songs have been listened to in total. ( top 5)
-app.get('/api/totalSongListenTime', (req,res) =>{
-  connection.query(`SELECT s.artistID, SUM(l.secondsSum) AS totalSecondsSum
-  FROM Song s
-  INNER JOIN (
-  SELECT songID, SUM(secondsListened) AS secondsSum
-          FROM ListenTime
-          GROUP BY songID)
-  AS l ON s.songID = l.songID
-  GROUP BY s.artistID;
-  LIMIT 5;`, (error, results) => {
-      if (error) {
-        res.status(500).send(error.message);
-      } else {
-        res.json(results);
-      }
+// 2) This will tell us how long an artist’s songs have been listened to in total. (top 4)
+app.get('/api/totalSongListenTime', (req, res) => {
+  connection.query(`
+    SELECT a.artistName, SUM(l.secondsSum) AS totalSecondsSum
+    FROM Artist a
+    INNER JOIN Song s ON a.artistID = s.artistID
+    INNER JOIN (
+      SELECT songID, SUM(secondsListened) AS secondsSum
+      FROM ListenTime
+      GROUP BY songID
+    ) AS l ON s.songID = l.songID
+    GROUP BY a.artistID
+    ORDER BY totalSecondsSum DESC
+    LIMIT 4;
+  `, (error, results) => {
+    if (error) {
+      res.status(500).send(error.message);
+    } else {
+      res.json(results);
+    }
   });
 });
 
-  // 3) It will group them by username and genre and add up the secondsListened for each song under that username, genre combo. This will tell us how long a user listened to a specific genre.
-app.get('/api/listenTimeGenre', (req,res) =>{
+// 3) It will group them by username and genre and add up the secondsListened for each song under that username, genre combo. This will tell us how long a user listened to a specific genre.
+app.get('/api/listenTimeGenre', (req, res) => {
   connection.query(`SELECT  l.username, s.genre, SUM(l.secondsListened) AS totalTime
   FROM ListenTime l, Song s
   WHERE l.songID = s.songID
   GROUP BY l.username, s.genre;`, (error, results) => {
-      if (error) {
-        res.status(500).send(error.message);
-      } else {
-        res.json(results);
-      }
+    if (error) {
+      res.status(500).send(error.message);
+    } else {
+      res.json(results);
+    }
   });
 });
 
-  // 4) Finds the most listened-to genre for each user by calculating the total listening time for each genre, ranking the genres within each user's partition, and then selecting the users with the top genre ‘possimus’.
-app.get('/api/topListenedGenre', (req,res) =>{
+// 4) Finds the most listened-to genre for each user by calculating the total listening time for each genre, ranking the genres within each user's partition, and then selecting the users with the top genre ‘possimus’.
+app.get('/api/topListenedGenre', (req, res) => {
   connection.query(`WITH RankedGenres AS (
       SELECT
           l.username,
@@ -208,46 +212,46 @@ app.get('/api/topListenedGenre', (req,res) =>{
   SELECT username, genre
   FROM RankedGenres
   WHERE genreRank = 1 && genre = "possimus";`, (error, results) => {
-      if (error) {
-        res.status(500).send(error.message);
-      } else {
-        res.json(results);
-      }
+    if (error) {
+      res.status(500).send(error.message);
+    } else {
+      res.json(results);
+    }
   });
 });
 
-  // 5) This will return the songs that have been listened to by at least 1 person on a specific date.
-app.get('/api/songsListenedDate', (req,res) =>{
+// 5) This will return the songs that have been listened to by at least 1 person on a specific date.
+app.get('/api/songsListenedDate', (req, res) => {
   connection.query(`SELECT * FROM Song
   WHERE EXISTS(
       SELECT 1
       FROM ListenTime
       WHERE Song.songID = ListenTime.songID && ListenTime.listenDate = '1975-10-28');`, (error, results) => {
-      if (error) {
-        res.status(500).send(error.message);
-      } else {
-        res.json(results);
-      }
+    if (error) {
+      res.status(500).send(error.message);
+    } else {
+      res.json(results);
+    }
   });
 });
 
 // 6) This will give us the #1 Potify user. 
-app.get('/api/topUser', (req,res) =>{
+app.get('/api/topUser', (req, res) => {
   connection.query(`SELECT username, SUM(secondsListened) AS totalListenTime 
   FROM ListenTime 
   GROUP BY username
   ORDER BY totalListenTime DESC
   LIMIT 1;`, (error, results) => {
-      if (error) {
-        res.status(500).send(error.message);
-      } else {
-        res.json(results);
-      }
-    });
+    if (error) {
+      res.status(500).send(error.message);
+    } else {
+      res.json(results);
+    }
+  });
 });
-  
+
 // 7)  Calculates all the artists with a specific top genre based on the count of songs for each genre. 
-app.get('/api/artistsTopGenre', (req,res) =>{
+app.get('/api/artistsTopGenre', (req, res) => {
   connection.query(`WITH RankedArtists AS (
       SELECT
           u.artistName,
@@ -263,16 +267,16 @@ app.get('/api/artistsTopGenre', (req,res) =>{
   WHERE artistRank = 1 && mostFrequentGenre = “possimus”;
   
   `, (error, results) => {
-      if (error) {
-        res.status(500).send(error.message);
-      } else {
-        res.json(results);
-      }
+    if (error) {
+      res.status(500).send(error.message);
+    } else {
+      res.json(results);
+    }
   });
 });
 
 app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+  console.log(`Server is running on port ${port}`);
 });
 
 // USE FOR OPTION #5 (USER LOGIN)
