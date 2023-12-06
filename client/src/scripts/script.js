@@ -119,6 +119,53 @@ async function togglePlaylistResult(playlistName, playlistID) {
   if (playlistResult.style.display === 'none') {
     playlistResult.style.display = 'block';
   } else {
+    while (songsDIV.firstChild) {
+      songsDIV.removeChild(songsDIV.firstChild);
+    }
+    playlistResult.style.display = 'none';
+  }
+}
+
+//toggles playlist display (songs)
+async function togglePersonalResult(playlistName, playlistID) {
+  console.log('name:' + playlistName);
+  const play = document.getElementById('personalized-playlist-name');
+  play.dataset.id = playlistID;
+  play.textContent = playlistName;
+  const songsDIV = document.getElementById('personalized-playlist-songs');
+  var playlistResult = document.getElementById('personal-result');
+  try {
+    const response = await fetch(`http://localhost:3000/api/playlistSongs/${playlistName}`);
+    if (!response.ok) {
+      console.log("Error fetching log in status");
+    } else {
+      const data = await response.json();
+      let n = 1;
+      for (song of data) {
+        const songDIV = document.createElement('div');
+        songDIV.classList.add('queue');
+        const songIMGDIV = document.createElement('div');
+        songIMGDIV.classList.add('queue-cover');
+        const songIMG = document.createElement('img');
+        songIMG.src = `images/plCard${n}.png`;
+        songIMGDIV.appendChild(songIMG);;
+        songName = document.createElement('p');
+        songName.classList.add('name');
+        songName.textContent = song.songName;
+        songDIV.appendChild(songIMGDIV);
+        songDIV.appendChild(songName);
+        songsDIV.appendChild(songDIV);
+        n = n + 1;
+      }
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+
+  // Toggle the visibility of the collabResult div
+  if (playlistResult.style.display === 'none') {
+    playlistResult.style.display = 'block';
+  } else {
     while(songsDIV.firstChild){
       songsDIV.removeChild(songsDIV.firstChild);
     }
@@ -174,7 +221,7 @@ async function togglePersonalResult(playlistName, playlistID) {
 }
 
 //function to display collaborator names
-async function getCollaborators(){
+async function getCollaborators() {
   var collabResultDiv = document.getElementById('collabResult');
   const collabDIV = document.getElementById('collaborators');
   var collabSearchButton = document.getElementById('collabSearch');
@@ -242,10 +289,10 @@ async function createNewPlaylist() {
     function generateRandomNumber() {
       // Generate a random decimal number between 0 (inclusive) and 1 (exclusive)
       const randomNumber = Math.random();
-    
-      // Scale the random number to be between 1 and 5 (inclusive)
+
+      // Scale the random number to be between 1 and 3 (inclusive)
       const scaledNumber = Math.floor(randomNumber * 5) + 1;
-    
+
       return scaledNumber;
     }
 
@@ -340,11 +387,12 @@ async function diplayUserPlaylists() {
         playlistIMG.src = `images/plCard${n}.png`;
         playlistButton.classList.add('playlist-user-button');
         playlistButton.appendChild(playlistIMG);
-        (function(playlistName, playlistID) {
-          playlistButton.onclick = function() {
-            togglePlaylistResult(playlistName, playlistID);
+        (function (playlistName) {
+          playlistButton.onclick = function () {
+            togglePlaylistResult(playlistName);
           };
-        })(playlist.playlistName, playlist.playlistID);
+        })(playlist.playlistName);
+
         playlistName = document.createElement('p');
         playlistName.classList.add('playlist-card-name');
         playlistName.textContent = playlist.playlistName;
@@ -484,15 +532,15 @@ async function addCollaborator() {
   const username = document.getElementById('userInput').value;
   const pName = document.getElementById('Playlist-name');
   const playlistID = pName.dataset.id;
-  try{
+  try {
     const response = await fetch(`http://localhost:3000/api/addCollaborator/${username}?playlistID=${playlistID}`, {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'}
+      headers: { 'Content-Type': 'application/json' }
     });
     if (response.status === 200) {
       console.log('Updated');
       getCollaborators();
-    }else {
+    } else {
       console.error('Error:', response.status);
     }
   } catch (error) {
