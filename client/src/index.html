@@ -33,7 +33,7 @@
         </div>
     </div>
 
-    <h1 class="heading" id="MPG">Most Popular Genres</h1>
+    <h1 class="heading" id="recommended-albums">Recommended Albums Based on your Preferred Genre</h1>
     <div class="playlists-group">
         <div class="playlist-card">
             <img src="images/image6.png" class="playlist-card-img" alt="">
@@ -63,9 +63,9 @@
     </div>
 
     <h1 class="heading" id="TA">Top Artists</h1>
-    <div class="playlists-group">
-        <div class="playlist-card">
-            <img src="images/image10.png" class="playlist-card-img" alt="">
+    <div class="playlists-group" id="top-artists">
+        <!-- <div class="playlist-card">
+            <img src="images/image10.png" onclick="{mostListenedToArtists()}" class="playlist-card-img" alt="">
             <p class="playlist-card-name">top international</p>
         </div>
         <div class="playlist-card">
@@ -79,36 +79,23 @@
         <div class="playlist-card">
             <img src="images/image13.png" class="playlist-card-img" alt="">
             <p class="playlist-card-name">BTS collection</p>
-        </div>
+        </div> -->
     </div>
 
     <div class="playlist-display">
         <button class="playlist-button" onclick="toggleText()">Top Artists</button>
             <!-- performs the query to match user with an album -->
-
         <div id="textSH" hidden>
             <p>possimus!</p>
         </div>
     </div>
     
-    <h1 class="heading" id="TL">Top Listener</h1>
-    <div class="playlists-group">
-        <div class="playlist-card">
+    <h1 class="heading" id="TL">Special Thanks to Our Top Listener!</h1>
+    <div class="playlists-group" id="top-listener">
+        <!-- <div class="playlist-card">
             <img src="images/image6.png" class="playlist-card-img" alt="">
-            <p class="playlist-card-name">top international</p>
-        </div>
-        <div class="playlist-card">
-            <img src="images/image7.png" class="playlist-card-img" alt="">
-            <p class="playlist-card-name">BTS collection</p>
-        </div>
-        <div class="playlist-card">
-            <img src="images/image8.png" class="playlist-card-img" alt="">
-            <p class="playlist-card-name">BTS collection</p>
-        </div>
-        <div class="playlist-card">
-            <img src="images/image9.png" class="playlist-card-img" alt="">
-            <p class="playlist-card-name">BTS collection</p>
-        </div>
+            <p class="playlist-card-name" id="top-listener"></p>
+        </div> -->
     </div>
 
     <div class="playlist-display">
@@ -140,7 +127,7 @@
         </div>
     </div>
 
-    <h1 class="heading" id="PP">Create a Personalized Playlist</h1>
+    <h1 class="heading" id="PP">Personalized For You...</h1>
     <div class="playlist-display">
         <!-- performs the modification to insert a new random playlist -->
         <button class="playlist-button" onclick="createNewPlaylist()">Create New Playlist</button>
