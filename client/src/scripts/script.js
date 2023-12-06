@@ -47,13 +47,13 @@ function performSearch() {
 
   // Check if the search term is not empty
   if (searchTerm !== "") {
-      // Display the search term in the results div
-      displaySearchResults(searchTerm);
-      // Show the search results div
-      searchResultsDiv.style.display = "block";
+    // Display the search term in the results div
+    displaySearchResults(searchTerm);
+    // Show the search results div
+    searchResultsDiv.style.display = "block";
   } else {
-      // If the search term is empty, hide the results div
-      hideSearchResults();
+    // If the search term is empty, hide the results div
+    hideSearchResults();
   }
 }
 
@@ -76,6 +76,32 @@ function hideSearchResults() {
   // Hide the search results div
   var searchResultsDiv = document.getElementById("searchResults");
   searchResultsDiv.style.display = "none";
+}
+
+function togglePlaylistResult() {
+  var playlistResult = document.getElementById('playlistResult');
+  var userPlaylist = document.getElementById('userPlaylist');
+
+  // Toggle the visibility of the collabResult div
+  if (playlistResult.style.display === 'none') {
+    playlistResult.style.display = 'block';
+  } else {
+    playlistResult.style.display = 'none';
+  }
+}
+
+function toggleCollabResult() {
+  var collabResultDiv = document.getElementById('collabResult');
+  var collabSearchButton = document.getElementById('collabSearch');
+
+  // Toggle the visibility of the collabResult div
+  if (collabResultDiv.style.display === 'none') {
+    collabResultDiv.style.display = 'block';
+    collabSearchButton.innerText = 'Close';
+  } else {
+    collabResultDiv.style.display = 'none';
+    collabSearchButton.innerText = 'Show Collaborators';
+  }
 }
 
 //display the users playlists

@@ -50,49 +50,56 @@
     <div class="playlist-wrapper">
         <h1 class="heading" id="Playlist">User Playlist</h1>
         <div class="user-playlists-group">
-            <div class="user-playlist-card">
+            <div id="userPlaylist" class="user-playlist-card" onclick="togglePlaylistResult()">
                 <button class="playlist-user-button"><img src="images/plCard1.png" class="playlist-card-img" alt=""></button>
                 <p class="playlist-card-name">User Playlist1</p>
             </div>
-            <div class="user-playlist-card">
+            <div id="userPlaylist" class="user-playlist-card" onclick="togglePlaylistResult()">
                 <button class="playlist-user-button"><img src="images/plCard2.png" class="playlist-card-img" alt=""></button>
                 <p class="playlist-card-name">User Playlist2</p>
             </div>
-            <div class="user-playlist-card">
+            <div id="userPlaylist" class="user-playlist-card" onclick="togglePlaylistResult()">
                 <button class="playlist-user-button"><img src="images/plCard3.png" class="playlist-card-img" alt=""></button>
                 <p class="playlist-card-name">User Playlist3</p>
             </div>
-            <div class="user-playlist-card">
+            <div id="userPlaylist" class="user-playlist-card"onclick="togglePlaylistResult()">
                 <button class="playlist-user-button"><img src="images/plCard4.png" class="playlist-card-img" alt=""></button>
                 <p class="playlist-card-name">User Playlist4</p>
             </div>
         </div>
 
-        <h1 class="heading" id="Playlist">Song Playlist</h1>
-        <div class="user-playlists-group-1">
-            <div class="queue active">
-                <div class="queue-cover">
-                    <img src="images/plCard3.png" alt="">
+        <div id="playlistResult" style="display: none;">
+            <h1 class="heading" id="Playlist">Song Playlist</h1>
+            <div class="user-playlists-group-1">
+                <div class="queue active">
+                    <div class="queue-cover">
+                        <img src="images/plCard3.png" alt="">
+                    </div>
+                    <p class="name">song 1</p>
                 </div>
-                <p class="name">song 1</p>
-            </div>
-        
-            <div class="queue active">
-                <div class="queue-cover">
-                    <img src="images/plCard3.png" alt="">
+            
+                <div class="queue active">
+                    <div class="queue-cover">
+                        <img src="images/plCard3.png" alt="">
+                    </div>
+                    <p class="name">song 2</p>
                 </div>
-                <p class="name">song 2</p>
-            </div>
-        
-            <div class="queue active">
-                <div class="queue-cover">
-                    <img src="images/plCard3.png" alt="">
+            
+                <div class="queue active">
+                    <div class="queue-cover">
+                        <img src="images/plCard3.png" alt="">
+                    </div>
+                    <p class="name">song 2</p>
                 </div>
-                <p class="name">song 2</p>
-            </div>
 
-            <button class="collaborator-button" onclick="showCollab()">Show Collaborators</button>
-                <div class="collaborator-result"></div>         
+                <button id="collabSearch" class="collaborator-button" onclick="toggleCollabResult()">Show Collaborators</button>
+                <div class="collaborator-result"></div>
+            
+                <div id="collabResult" class="collab-result-wrapper" style="display: none;">
+                    <!-- Search results will be displayed here -->
+                    <p>Search results will appear here.</p>
+                </div>
+            </div>
         </div>
     </div>
 
