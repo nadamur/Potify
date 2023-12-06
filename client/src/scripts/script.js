@@ -31,18 +31,18 @@ setInterval(() => {
 }, 3000);
 
 //display the users playlists
-function createNewPlaylist(){
+function createNewPlaylist() {
   return;
 }
 
 //function to get the users playlists
-async function getUserPlaylist(){
+async function getUserPlaylist() {
   try {
     const response = await fetch(`/login`);
     if (!response.ok) {
       //if no heroes found, displays message
       console.log("Error fetching log in status");
-    }else{
+    } else {
       const data = await response.json();
       console.log(data);
     }
@@ -52,12 +52,12 @@ async function getUserPlaylist(){
 }
 
 //function to display most listened to artists
-async function mostListenedToArtists(){
+async function mostListenedToArtists() {
   try {
     const response = await fetch(`/totalSongListenTime`);
     if (!response.ok) {
       console.log("Error fetching log in status");
-    }else{
+    } else {
       const data = await response.json();
       console.log(data);
     }
@@ -66,4 +66,47 @@ async function mostListenedToArtists(){
   }
 }
 
-//function to recommend artist album to user
+function performSearch() {
+  // Get the search input value
+  var searchTerm = document.getElementById("searchInput").value.trim();
+
+  // Get the search results div
+  var searchResultsDiv = document.getElementById("searchResults");
+
+  // Check if the search term is not empty
+  if (searchTerm !== "") {
+    // Display the search term in the results div
+    displaySearchResults(searchTerm);
+    // Show the search results div
+    searchResultsDiv.style.display = "block";
+  } else {
+    // If the search term is empty, hide the results div
+    hideSearchResults();
+  }
+}
+
+function displaySearchResults(result) {
+  // Get the search results div
+  var searchResultsDiv = document.getElementById("searchResults");
+
+  // Display the result in a paragraph
+  var resultHeader = document.createElement("h2");
+  resultHeader.textContent = "Display Search Result"
+
+  // Display the result in a paragraph
+  var resultParagraph = document.createElement("p");
+  resultParagraph.textContent = "Search Result: " + result;
+
+  // Clear previous results
+  searchResultsDiv.innerHTML = "";
+
+  // Append the new result
+  searchResultsDiv.appendChild(resultHeader);
+  searchResultsDiv.appendChild(resultParagraph);
+}
+
+function hideSearchResults() {
+  // Hide the search results div
+  var searchResultsDiv = document.getElementById("searchResults");
+  searchResultsDiv.style.display = "none";
+}

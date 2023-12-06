@@ -17,28 +17,6 @@ header {
     align-items: center;
 }
 
-nav ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-}
-
-nav ul li {
-    display: inline;
-    margin-right: 20px;
-}
-
-nav a {
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
-}
-
-main {
-    padding: 15px;
-}
-
 button {
     padding: 10px 20px;
     font-size: 16px;
@@ -48,50 +26,6 @@ button {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
-}
-
-.user-info {
-    text-align: right
-}
-
-.user-info img {
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    /* Make the profile picture round */
-    margin-right: 8px;
-    /* Add some spacing between the picture and username */
-}
-
-.sticky {
-    position: fixed;
-    top: 0;
-    width: 99%
-}
-
-/* Add some top padding to the page content to prevent sudden quick movement (as the header gets a new position at the top of the page (position:fixed and top:0) */
-.sticky+.content {
-    padding-top: 100px;
-}
-
-footer {
-    background-color: black;
-    padding: 1px;
-    color: white;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-}
-
-.user-profile {
-    /*display: flex;
-    align-items: right; Center items vertically */
-}
-
-.username {
-    font-weight: bold;
-    font-size: 16px;
 }
 
 * {
@@ -169,7 +103,7 @@ body {
 }
 
 .title {
-    margin-top: 80px;
+    margin-top: 20px;
     font-size: 50px;
     color: white;
     text-align: center;
@@ -306,7 +240,7 @@ body {
 .playlist-user-button {
     padding: 10px 20px;
     font-size: 16px;
-    background-color: lightcyan;
+    background-color: lightgray;
     color: white;
     border: none;
     border-radius: 10px;
@@ -323,8 +257,160 @@ body {
     margin: auto;
 }
 
+.search {
+    float: right;
+}
+
+.searchBtn {
+    background-color: darkcyan;
+}
+
+.search-results {
+    position: relative;
+    width: 75vw;
+    min-height: 200px;
+    height: auto;
+    display: flex;
+    /* nowrap for swipping*/
+    flex-wrap: wrap;
+    overflow-x: auto;
+    border: 1px solid #000;
+    box-shadow: 3px 3px 15px lightgray;
+    justify-content: center;
+    margin: auto;
+    padding: 30px 10px;
+    color: white;
+    font-size: 18px;
+    text-align: center;
+}
+
+.search-results h2 {
+    margin-bottom: 15px;
+}
 
 #textSH {
     position: relative;
     color: white;
+}
+
+.up {
+    display: flex;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    font-size: 32px;
+    font-weight: 800px;
+    color: black;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    background-color: white;
+    border-radius: 10px;
+    width: 50px;
+    height: 50px;
+    justify-content: center;
+    margin: auto;
+    text-align: center;
+    align-items: center;
+
+}
+
+.up:hover {
+    color: darkcyan;
+}
+
+/* playlist section */
+
+.playlist {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    right: -100%;
+    padding: 30px 0;
+    background: var(--background);
+    z-index: 3;
+    transition: 1s;
+    overflow: auto;
+}
+
+.playlist.active {
+    right: 0;
+}
+
+.playlist-title {
+    font-weight: 300;
+    font-size: 40px;
+    text-align: center;
+    margin-top: 15px;
+    text-transform: capitalize;
+    margin-bottom: 30px;
+}
+
+.queue {
+    width: 100%;
+    height: 80px;
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+    border-top: 2px solid var(--alpha-color);
+    color: black;
+    background-color: lightgray;
+    border-radius: 10px;
+    margin: 5px 5px;
+}
+
+.queue-cover {
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-right: 20px;
+    position: relative;
+}
+
+.queue-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.queue-cover i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 30px;
+    color: var(--primary-color);
+    display: none;
+}
+
+.queue.active i {
+    display: block;
+}
+
+.queue .name {
+    font-size: 22px;
+    text-transform: capitalize;
+}
+
+.user-playlists-group-1 {
+    position: relative;
+    width: 75vw;
+    min-height: 200px;
+    height: auto;
+    overflow-x: auto;
+    border: 1px solid #000;
+    box-shadow: 3px 3px 15px lightgray;
+    justify-content: center;
+    margin: auto;
+    padding: 30px 10px;
+    color: white;
+}
+
+.collaborator-button {
+    display: flex;
+    background-color: darkcyan;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
 }
