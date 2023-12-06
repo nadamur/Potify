@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Page Title</title>
     <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 
 <body>
@@ -58,36 +59,9 @@
         </div>
     </div>
 
-    <div class="playlist-display">
-        <button class="playlist-button" onclick="toggleText()">Album Recommendation</button>
-            <!-- performs the query to match user with an album -->
-
-        <div id="textSH" hidden>
-            <p>possimus!</p>
-        </div>
-    </div>
-
     <h1 class="heading" id="TA">Top Artists</h1>
     <div class="playlists-group" id="top-artists">
-    </div>
-
-    <div class="playlist-display">
-        <button class="playlist-button" onclick="toggleText()">Top Artists</button>
-            <!-- performs the query to match user with an album -->
-        <div id="textSH" hidden>
-            <p>possimus!</p>
-        </div>
-    </div>
-    
-
-    <div class="playlist-display">
-        <button class="playlist-button" onclick="toggleText()">Top Listener</button>
-            <!-- performs the query to match user with an album -->
-
-        <div id="textSH" hidden>
-            <p>possimus!</p>
-        </div>
-    </div>
+    </div>    
 
     <div class="playlist-wrapper">
         <h1 class="heading" id="Playlist">Playlist</h1>
@@ -173,6 +147,31 @@
     </div>
 
     <a href="#top" class="up">&#8593;</a>
+
+    <footer class="cool-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h2>About Us</h2>
+                <p>SE3309 Assignment 4 Team 8</p>
+            </div>
+            <div class="footer-section">
+                <h2>Contact</h2>
+                <p>PotifyContactService@gmail.com</p>
+                <p>Phone: +1 (519) 101-7557</p>
+            </div>
+            <div class="footer-section">
+                <h2>Follow Us</h2>
+                <ul>
+                    <li><a href="#" target="_blank"><i class="fab fa-facebook-square"></i> Facebook</a></li>
+                    <li><a href="#" target="_blank"><i class="fab fa-twitter-square"></i> Twitter</a></li>
+                    <li><a href="#" target="_blank"><i class="fab fa-instagram-square"></i> Instagram</a></li>
+                </ul>
+            </div>            
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; Potify CA</p>
+        </div>
+    </footer>
 
     <script defer src="scripts\script.js"></script>
 
