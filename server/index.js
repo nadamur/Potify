@@ -16,7 +16,7 @@ const connection = createConnection({
   host: 'localhost',
   user: 'root',
   // CHANGE WITH YOUR MYSQL PASSWORD
-  password: 'Wmlldn2003',
+  password: '123!@#QWEasdzxc',
   database: 'Potify',
   port: 3306,
 });
@@ -367,6 +367,56 @@ WHERE pg.genreRank = 1 AND ugm.username = 'bob420';
     } else {
       res.json(results);
     }
+  });
+});
+
+app.post('/api/createPlaylist', (req, res) => {
+  connection.beginTransaction((err) => {
+    if (err) {
+      return res.status(500).send(err.message);
+    }
+
+    // Insert a playlist with the creator being bob420 into Playlist table
+    connection.query('INSERT INTO Playlist (creator, playlistName) VALUES (?, ?)', ['bob420', 'Random Playlist'], (error, playlistResult) => {
+      if (error) {
+        return connection.rollback(() => {
+          res.status(500).send(error.message);
+        });
+      }
+
+      const playlistID = playlistResult.insertId;
+
+      // Select 5 random songs from the user's preferred genre and add them to the playlist
+      connection.query('INSERT INTO PlaylistSongs (playlistID, songID) SELECT ?, songID FROM Song WHERE genre = (SELECT genrePref FROM User WHERE username = ?) ORDER BY RAND() LIMIT 5', [playlistID, 'bob420'], (err, results) => {
+        if (err) {
+          return connection.rollback(() => {
+            res.status(500).send(err.message);
+          });
+        }
+
+        const songIDs = [results.insertId]; // Use the insertId directly
+
+        connection.commit((err) => {
+          if (err) {
+            return connection.rollback(() => {
+              res.status(500).send(err.message);
+            });
+          }
+
+          // Retrieve the playlist name
+          connection.query('SELECT playlistName FROM Playlist WHERE playlistID = ?', [playlistID], (err, nameResult) => {
+            if (err) {
+              return res.status(500).send(err.message);
+            }
+
+            const playlistName = nameResult[0].playlistName;
+
+            // Return the playlistName along with the songIDs
+            res.json({ playlistName, songIDs });
+          });
+        });
+      });
+    });
   });
 });
 
