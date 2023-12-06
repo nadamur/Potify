@@ -69,7 +69,7 @@
         </div>
 
         <div id="playlistResult" style="display: none;">
-            <h1 class="heading" id="Playlist">Song Playlist</h1>
+            <h1 class="heading" id="Playlist-name"></h1>
             <div class="user-playlists-group-1" id="playlist-songs">
                 <!-- <div class="queue">
                     <div class="queue-cover">
@@ -97,7 +97,10 @@
             
                 <div id="collabResult" class="collab-result-wrapper" style="display: none;">
                     <!-- Search results will be displayed here -->
-                    <p>Search results will appear here.</p>
+                    <label for="userInput">Add Collaborator:</label>
+                    <input type="text" id="userInput" name="textInput" placeholder="Enter Username...">
+                    <button class="collaborator-button" onclick="addCollaborator()">Add</button>
+                    <p>Current Collaborators: </p>
                 </div>
             </div>
         </div>

@@ -16,7 +16,7 @@ const connection = createConnection({
   host: 'localhost',
   user: 'root',
   // CHANGE WITH YOUR MYSQL PASSWORD
-  password: '123!@#QWEasdzxc',
+  password: 'Wmlldn2003',
   database: 'Potify',
   port: 3306,
 });
@@ -328,9 +328,8 @@ WHERE pg.genreRank = 1 AND ugm.username = 'bob420';
 
 // returns all the playlists of a user
 app.get('/api/userPlaylists', (req, res) => {
-  const username = 'bob420';
-
-  connection.query('SELECT * FROM Playlist WHERE creator = ? LIMIT 4', [username], (error, results) => {
+  connection.query(`SELECT * FROM Playlist WHERE creator = 'bob420' LIMIT 4;
+  `, (error, results) => {
     if (error) {
       console.error("SQL error:", error);
       res.status(500).send(error.message);
@@ -420,6 +419,58 @@ app.post('/api/createPlaylist', (req, res) => {
   });
 });
 
+//returns the collaborators of a playlist
+app.get('/api/collaborators/:playlistName', (req, res) => {
+  const playlistName = req.params.playlistName;
+  connection.query(`SELECT
+  c.collaborator,
+  u.username AS collaboratorUsername
+FROM
+  Collaborators c
+JOIN
+  Playlist p ON c.playlistID = p.playlistID
+JOIN
+  User u ON c.collaborator = u.username
+WHERE
+  p.playlistName = '${playlistName}';
+
+  `, (error, results) => {
+    if (error) {
+      res.status(500).send(error.message);
+    } else {
+      res.json(results);
+    }
+  });
+});
+
+//add collaborator to playlist
+app.post('/api/addCollaborator/:usernameAndPlaylistID', (req, res) => {
+  const username = req.params.usernameAndPlaylistID;
+  //assuming we are receiving the URL in the format: /api/addCollaborator/username?playlistID=1
+  const playlistID = req.query.playlistID;
+  connection.beginTransaction((err) => {
+    if (err) {
+      return res.status(500).send(err.message);
+    }
+
+    // insert into collab table
+    connection.query('INSERT INTO Collaborators (collaborator, playlistID) VALUES (?, ?)', [username, playlistID], (error, result) => {
+      if (error) {
+        return connection.rollback(() => {
+          res.status(500).send(error.message);
+        });
+      }
+      connection.commit((commitErr)=>{
+        if (commitErr){
+          return connection.rollback(()=>{
+            res.status(500).send(commitErr.message);
+          });
+        }
+        res.json({success:true, message: 'Successfully added collaborator'});
+      })
+    });
+  });
+});
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
