@@ -1,0 +1,551 @@
+/* css/styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+
+header {
+    background-color: red;
+    padding: 5px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #3498db;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --background: #141414;
+    --text-color: #fff;
+    --primary-color: #63ff69;
+    --secondary-color: #000;
+    --alpha-color: rgba(0, 0, 0, 0.5);
+    --shadow: 0 15px 40px var(--alpha-color);
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+:target {
+    display: block;
+    margin-top: 80px;
+    /* Add the margin you want */
+    padding-top: 20px;
+    /* Optional: Add padding for spacing */
+}
+
+/* Style for the header when targeted */
+:target .heading {
+    display: block;
+}
+
+html {
+    scroll-behavior: smooth;
+    background: var(--background);
+    display: flex;
+    justify-content: center;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.nav {
+    width: 100vw;
+    background-color: #333;
+    overflow: hidden;
+    /* position: fixed; */
+    margin-bottom: 0;
+    /* Ensure the navigation bar is above other content */
+    z-index: 100;
+    left: 0px;
+}
+
+.nav a {
+    float: left;
+    color: white;
+    text-align: center;
+    padding: 15px 20px;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.nav a:hover {
+    background-color: white;
+    color: black;
+}
+
+.nav a.active {
+    background-color: darkcyan;
+    color: white;
+}
+
+.title {
+    margin-top: 20px;
+    font-size: 50px;
+    color: white;
+    text-align: center;
+}
+
+.home-section {
+    width: 90vw;
+    padding: 20px;
+    overflow-y: auto;
+    margin: auto;
+}
+
+.carousel {
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    /* border-radius: 20px; */
+    box-shadow: var(--shadow);
+    position: relative;
+    border: 1px solid #000;
+    box-shadow: 3px 3px 15px darkcyan;
+    /* box-shadow: 3px 3px 15px lightcyan; */
+    margin-top: 10px;
+}
+
+.carousel img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: 1s;
+}
+
+.carousel img.active {
+    opacity: 1;
+}
+
+/* .wrapper {
+    width: 75vw;
+    height: 100vh;
+    position: relative;
+    background: var(--background);
+    font-family: 'roboto', sans-serif;
+    color: var(--text-color);
+    margin: auto;
+} */
+
+.heading {
+    color: white;
+    margin: 30px 0 30px;
+    text-transform: capitalize;
+    font-weight: 600;
+    font-size: 30px;
+    text-align: center;
+}
+
+/* playlists card */
+
+.playlists-group {
+    position: relative;
+    width: 50vw;
+    min-height: 200px;
+    height: auto;
+    display: flex;
+    /* nowrap for swipping*/
+    flex-wrap: wrap;
+    overflow-x: auto;
+    border: 1px solid #000;
+    box-shadow: 3px 3px 15px darkcyan;
+    justify-content: center;
+    margin: auto;
+    padding: 30px 10px;
+}
+
+.playlist-card {
+    flex: 0 0 auto;
+    /* max-width: 150px; */
+    height: 100%;
+    margin-right: 20px;
+    max-width: 350px;
+    min-width: 350px;
+}
+
+.playlist-card-img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.playlist-card-name {
+    width: 100%;
+    font-size: 20px;
+    text-transform: capitalize;
+    padding: 5px;
+    text-align: center;
+    color: white;
+}
+
+.playlist-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.playlist-button {
+    padding: 10px 10px;
+    font-size: 16px;
+    background-color: darkcyan;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-bottom: 10px;
+}
+
+.user-playlists-group {
+    position: relative;
+    width: 75vw;
+    min-height: 200px;
+    height: auto;
+    display: flex;
+    /* nowrap for swipping*/
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    border: 1px solid #000;
+    box-shadow: 3px 3px 15px darkcyan;
+    justify-content: center;
+    margin: auto;
+    padding: 30px 10px;
+}
+
+.playlist-user-button {
+    padding: 3px 3px;
+    font-size: 16px;
+    background-color: lightgray;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-bottom: 10px;
+}
+
+.user-playlist-card {
+    flex: 0 0 auto;
+    /* max-width: 150px; */
+    height: 100%;
+    max-width: 17vw;
+    margin: auto;
+}
+
+.search {
+    position: relative;
+    top: 7px;
+    right: 10px;
+    float: right;
+}
+
+.searchBtn {
+    background-color: darkcyan;
+}
+
+.search-results {
+    position: relative;
+    width: 75vw;
+    min-height: 200px;
+    height: auto;
+    display: flex;
+    /* nowrap for swipping*/
+    flex-wrap: wrap;
+    overflow-x: auto;
+    border: 1px solid #000;
+    box-shadow: 3px 3px 15px darkcyan;
+    justify-content: center;
+    margin: auto;
+    padding: 30px 10px;
+    color: white;
+    font-size: 18px;
+    text-align: center;
+}
+
+.search-results h2 {
+    margin-bottom: 15px;
+}
+
+#searchInput {
+    padding: 10px 10px;
+    border-radius: 5px;
+}
+
+.up {
+    display: flex;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    font-size: 32px;
+    font-weight: 800px;
+    color: black;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    background-color: white;
+    border-radius: 10px;
+    width: 50px;
+    height: 50px;
+    justify-content: center;
+    margin: auto;
+    text-align: center;
+    align-items: center;
+
+}
+
+.up:hover {
+    color: darkcyan;
+}
+
+/* playlist section */
+
+.playlist {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    right: -100%;
+    padding: 30px 0;
+    background: var(--background);
+    z-index: 3;
+    transition: 1s;
+    overflow: auto;
+}
+
+.playlist.active {
+    right: 0;
+}
+
+.playlist-title {
+    font-weight: 300;
+    font-size: 40px;
+    text-align: center;
+    margin-top: 15px;
+    text-transform: capitalize;
+    margin-bottom: 30px;
+}
+
+.queue {
+    width: 100%;
+    height: 80px;
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+    border-top: 2px solid var(--alpha-color);
+    color: black;
+    background-color: lightgray;
+    border-radius: 10px;
+    margin: 5px 5px;
+}
+
+.queue-cover {
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-right: 20px;
+    position: relative;
+}
+
+.queue-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.queue-cover i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 30px;
+    color: var(--primary-color);
+    display: none;
+}
+
+.queue .name {
+    font-size: 22px;
+    text-transform: capitalize;
+}
+
+.user-playlists-group-1 {
+    position: relative;
+    width: 75vw;
+    min-height: 200px;
+    height: auto;
+    overflow-x: auto;
+    border: 1px solid #000;
+    box-shadow: 3px 3px 15px darkcyan;
+    justify-content: center;
+    margin: auto;
+    padding: 30px 10px;
+    color: white;
+}
+
+.collaborator-button {
+    display: flex;
+    background-color: darkcyan;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.cool-footer {
+    background-color: darkcyan;
+    color: white;
+    padding: 15px 0px 0px;
+    margin-top: 80px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.footer-section i {
+    margin-right: 8px;
+    font-size: 0.9em;
+}
+
+.footer-section h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.footer-section p {
+    font-size: 0.9em;
+    line-height: 1.4;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 8px;
+}
+
+.footer-section a {
+    text-decoration: none;
+    color: white;
+    transition: color 0.3s ease;
+}
+
+.footer-section a:hover {
+    color: white;
+}
+
+.footer-bottom {
+    background-color: white;
+    color: darkcyan;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: 10px;
+}
+
+.collab-result-wrapper {
+    position: relative;
+    width: 60vw;
+    min-height: 200px;
+    height: auto;
+    overflow-x: auto;
+    border: 1px solid #000;
+    box-shadow: 3px 3px 15px darkcyan;
+    justify-content: center;
+    margin: auto;
+    padding: 30px 10px;
+    color: white;
+    margin-top: 30px;
+}
+
+.personal-playlists-group {
+    position: relative;
+    width: 50vw;
+    min-height: 200px;
+    height: auto;
+    display: flex;
+    /* nowrap for swipping*/
+    flex-wrap: wrap;
+    overflow-x: auto;
+    border: 1px solid #000;
+    box-shadow: 3px 3px 15px darkcyan;
+    justify-content: center;
+    margin: auto;
+    padding: 30px 10px;
+}
+
+.personal-playlist-card {
+    flex: 0 0 auto;
+    /* max-width: 150px; */
+    height: 100%;
+    margin-right: 20px;
+    max-width: 300px;
+    min-width: 300px;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+.personal-playlist-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 20px;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+.personal-user-button {
+    padding: 3px 3px;
+    font-size: 16px;
+    background-color: lightgray;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-bottom: 10px;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+.personal-playlist-name {
+    width: 100%;
+    font-size: 20px;
+    text-transform: capitalize;
+    padding: 5px;
+    text-align: center;
+    color: white;
+}

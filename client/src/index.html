@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Potify</title>
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body>
+    <div class="nav">
+        <a class="active">Home</a>
+        <a href="#MPG">Most Popular Genres</a>
+        <a href="#TA">Top Artists</a>
+        <a href="#TL">Top Listeners</a>
+        <a href="#Playlist">Playlist</a>
+        <a href="#PP">Personalized Playlist</a>
+        <div class="search">
+            <input type="text" id="searchInput" placeholder="Search" />
+            <button class="searchBtn" onclick="performSearch()">Search</button>
+        </div>
+    </div>
+
+    <h1 class="title" id="top">WELCOME TO POTIFY</h1>
+
+    <div class="home-section">
+        <div class="carousel">
+            <img src="images/album1.png" class="active" alt="">
+            <img src="images/album2.png" alt="">
+            <img src="images/album3.png" alt="">
+            <img src="images/album4.png" alt="">
+            <img src="images/album5.png" alt="">
+        </div>
+    </div>
+
+    <div id="searchResults" class="search-results" style="display: none;">
+        <!-- Search results will be displayed here -->
+    </div>
+
+    <h1 class="heading">Recommended Albums Based on your Preferred Genre</h1>
+    <div class="playlists-group" id="recommended-albums">
+    </div>
+
+    <h1 class="heading" id="TA">Top Artists</h1>
+    <div class="playlists-group" id="top-artists">
+    </div>    
+
+    <div class="playlist-wrapper">
+        <h1 class="heading" id="Playlist">Your Playlists</h1>
+        <div class="user-playlists-group" id = "user-playlists">
+            <!-- <div id="userPlaylist" class="user-playlist-card" onclick="togglePlaylistResult()">
+                <button class="playlist-user-button"><img src="images/plCard1.png" class="playlist-card-img" alt=""></button>
+                <p class="playlist-card-name">User Playlist1</p>
+            </div>
+            <div id="userPlaylist" class="user-playlist-card" onclick="togglePlaylistResult()">
+                <button class="playlist-user-button"><img src="images/plCard2.png" class="playlist-card-img" alt=""></button>
+                <p class="playlist-card-name">User Playlist2</p>
+            </div>
+            <div id="userPlaylist" class="user-playlist-card" onclick="togglePlaylistResult()">
+                <button class="playlist-user-button"><img src="images/plCard3.png" class="playlist-card-img" alt=""></button>
+                <p class="playlist-card-name">User Playlist3</p>
+            </div>
+            <div id="userPlaylist" class="user-playlist-card"onclick="togglePlaylistResult()">
+                <button class="playlist-user-button"><img src="images/plCard4.png" class="playlist-card-img" alt=""></button>
+                <p class="playlist-card-name">User Playlist4</p>
+            </div> -->
+        </div>
+
+        <div id="playlistResult" style="display: none;">
+            <h1 class="heading" id="Playlist-name"></h1>
+            <div class="user-playlists-group-1" id="playlist-songs">
+                <!-- <div class="queue">
+                    <div class="queue-cover">
+                        <img src="images/plCard3.png" alt="">
+                    </div>
+                    <p class="name">song 1</p>
+                </div>
+            
+                <div class="queue">
+                    <div class="queue-cover">
+                        <img src="images/plCard3.png" alt="">
+                    </div>
+                    <p class="name">song 2</p>
+                </div>
+            
+                <div class="queue">
+                    <div class="queue-cover">
+                        <img src="images/plCard3.png" alt="">
+                    </div>
+                    <p class="name">song 2</p>
+                </div> -->
+
+                <button id="collabSearch" class="collaborator-button" onclick="toggleCollabResult()">Show Collaborators</button>
+                <div class="collaborator-result"></div>
+            
+                <div id="collabResult" class="collab-result-wrapper" style="display: none;">
+                    <!-- Search results will be displayed here -->
+                    <label for="userInput">Add Collaborator:</label>
+                    <input type="text" id="userInput" name="textInput" placeholder="Enter Username...">
+                    <button class="collaborator-button" onclick="addCollaborator()">Add</button>
+                    <p>Current Collaborators: </p>
+                    <div id="collaborators"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h1 class="heading" id="PP">Personalized For You...</h1>
+    <div class="playlist-display">
+        <!-- performs the modification to insert a new random playlist -->
+        <button class="personal-playlist-button" onclick="createNewPlaylist()">Create New Playlist</button>
+        <div class="personal-playlists-group" id="randomized-playlist"></div>
+
+        <div id="personal-result" style="display: none;">
+            <h1 class="heading" id="personalized-playlist-name"></h1>
+            <div class="user-playlists-group-1" id="personalized-playlist-songs"></div>
+        </div>
+    </div>
+
+    <h1 class="heading">What's Being Listened to Today...</h1>
+    <div class="playlist-display" >
+        <div class="playlists-group" id="listened-to-today">
+        </div>
+    </div>
+
+    <h1 class="heading">Potify Users with your Music Taste!</h1>
+    <div class="playlist-display" >
+        <div class="playlists-group" id="users-with-same-top-genre">
+        </div>
+    </div>
+
+    <h1 class="heading" id="TL">Special Thanks to Our Top Listener!</h1>
+    <div class="playlists-group" id="top-listener">
+        <!-- <div class="playlist-card">
+            <img src="images/image6.png" class="playlist-card-img" alt="">
+            <p class="playlist-card-name" id="top-listener"></p>
+        </div> -->
+    </div>
+
+    <a href="#top" class="up">&#8593;</a>
+
+    <footer class="cool-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h2>About Us</h2>
+                <p>SE3309 Assignment 4 Team 8</p>
+            </div>
+            <div class="footer-section">
+                <h2>Contact</h2>
+                <p>Email: contactpotify@gmail.com</p>
+                <p>Phone: +1 (519) 101-7557</p>
+            </div>
+            <div class="footer-section">
+                <h2>Follow Us</h2>
+                <ul>
+                    <li><a href="https://www.instagram.com/elbertc4/" target="_blank"><i class="fab fa-facebook-square"></i> Facebook</a></li>
+                    <li><a href="https://www.instagram.com/elbertc4/" target="_blank"><i class="fab fa-twitter-square"></i> Twitter</a></li>
+                    <li><a href="https://www.instagram.com/elbertc4/" target="_blank"><i class="fab fa-instagram-square"></i> Instagram</a></li>
+                </ul>
+            </div>            
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; Potify CA</p>
+        </div>
+    </footer>
+
+    <script defer src="scripts\script.js"></script>
+
+</body>
+</html>

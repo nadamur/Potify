@@ -1,0 +1,1 @@
+This folder should contain a .dump file capable of re-creating your database and all its data. 
