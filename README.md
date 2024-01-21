@@ -6,17 +6,30 @@ Potify is a music discovery application that aims to provide users with a person
 
 ## Features
 
+### Recommended Playlists
+Potify provides you with Artist playlists that align with your listening history.
+![image](https://github.com/nadamur/Potify/assets/114004182/a4c37033-0bb4-40fe-b594-665cdfb5f103)
+
+
 ### Personalized Playlists
-Discover new, customized playlists tailored to your unique music preferences. Our algorithm takes into account your listening history and favourite genres to create playlists you'll love.
+Discover unlimited new, customized playlists tailored to your unique music preferences. Our algorithm takes into account your listening history and favourite genres to create playlists you'll love.
+![image](https://github.com/nadamur/Potify/assets/114004182/a3078ace-f4f4-48f6-8aa2-cfe84f80c5a1)
+
 
 ### Playlist Management
 Easily browse, organize, and manage your playlists within the application. Potify allows you to create, edit, and delete playlists to suit your mood and preferences.
+![image](https://github.com/nadamur/Potify/assets/114004182/d7a8ec7d-6064-4903-9dbe-0e83f0409868)
 
-### Monthly Leaderboard
-Stay engaged with the Potify community! We showcase the most active Potify user each month, encouraging friendly competition and a sense of community among music enthusiasts.
+
+### User Engagement
+Stay engaged with the Potify community! We showcase the most active Potify user each month, encouraging friendly competition and a sense of community among music enthusiasts. We also allow users to connect by introducing them to others who share their music taste!
+![image](https://github.com/nadamur/Potify/assets/114004182/bfc065ee-0ec1-46d0-bbc2-19911863cde2)
+
 
 ### Top Artists and Genres
 Explore the top artists and genres trending on Potify. Our monthly updates ensure you're always in the loop about the latest musical trends within the Potify community.
+![image](https://github.com/nadamur/Potify/assets/114004182/a14d4bae-a53b-4b25-b260-136b7ce0fb39)
+
 
 ## Getting Started
 
